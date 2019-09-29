@@ -1,0 +1,26 @@
+name: flutter_ddd
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+
+  uuid: ^2.0.2
+  sqflite: ^1.1.6
+  provider: ^3.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  test: 1.6.3
+
+flutter:
+  uses-material-design: true
