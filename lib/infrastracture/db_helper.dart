@@ -2,8 +2,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DbHelper {
-  static const _DB_FILE = 'ddd4.db';
-  static const _DB_VERSION = 4;
+  static const _DB_FILE = 'ddd.db';
+  static const _DB_VERSION = 1;
   Database _db;
 
   Future<Database> get db async {
