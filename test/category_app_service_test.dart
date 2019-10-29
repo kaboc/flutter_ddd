@@ -1,8 +1,8 @@
 import 'package:test/test.dart';
 import 'package:flutter_ddd/application/category_app_service.dart';
-import 'package:flutter_ddd/infrastracture/category/category_factory.dart';
-import 'infrastracture/category_repository.dart';
-import 'infrastracture/note_repository.dart';
+import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
+import 'infrastructure/category_repository.dart';
+import 'infrastructure/note_repository.dart';
 
 void main() {
   group('Category', () {

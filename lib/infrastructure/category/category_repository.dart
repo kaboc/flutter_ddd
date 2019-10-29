@@ -1,7 +1,7 @@
 import 'package:flutter_ddd/domain/category/category_repository_base.dart';
-import 'package:flutter_ddd/infrastracture/db_helper.dart';
+import 'package:flutter_ddd/infrastructure/db_helper.dart';
 
-export 'package:flutter_ddd/infrastracture/db_helper.dart';
+export 'package:flutter_ddd/infrastructure/db_helper.dart';
 
 class CategoryRepository implements CategoryRepositoryBase {
   static CategoryRepository _instance;

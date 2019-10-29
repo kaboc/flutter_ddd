@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_ddd/infrastracture/db_helper.dart';
+import 'package:flutter_ddd/infrastructure/db_helper.dart';
 import 'package:flutter_ddd/presentation/widget/category/update_button.dart';
 import 'package:flutter_ddd/presentation/model/category_model.dart';
 import 'package:flutter_ddd/presentation/page/note_list.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_ddd/application/category_app_service.dart';
-import 'package:flutter_ddd/infrastracture/category/category_factory.dart';
-import 'package:flutter_ddd/infrastracture/category/category_repository.dart';
-import 'package:flutter_ddd/infrastracture/note/note_repository.dart';
+import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
+import 'package:flutter_ddd/infrastructure/category/category_repository.dart';
+import 'package:flutter_ddd/infrastructure/note/note_repository.dart';
 import 'package:flutter_ddd/presentation/model/category_model.dart';
 import 'package:flutter_ddd/presentation/widget/category/category_list_view.dart';
 import 'package:flutter_ddd/presentation/widget/category/register_button.dart';
