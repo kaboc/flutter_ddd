@@ -53,7 +53,9 @@ class NoteModel with ChangeNotifier {
     _updateList();
   }
 
-  Future<NoteDto> getNote(String id) async => await app.getNote(id);
+  Future<NoteDto> getNote(String id) async {
+    return await app.getNote(id);
+  }
 
   void _updateList() {
     app.getNoteList(_categoryId).then((list) {
