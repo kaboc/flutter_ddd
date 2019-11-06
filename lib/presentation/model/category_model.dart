@@ -35,8 +35,6 @@ class CategoryModel with ChangeNotifier {
     _updateList();
   }
 
-  Future<CategoryDto> getCategory(String id) async => await app.getCategory(id);
-
   void _updateList() {
     app.getCategoryList().then((list) {
       _list = list;

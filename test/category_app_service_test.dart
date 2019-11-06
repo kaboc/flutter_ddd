@@ -78,8 +78,7 @@ void main() {
       final categories = await app.getCategoryList();
       await app.removeCategory(categories[0].id);
 
-      final category = await app.getCategory(categories[0].id);
-      expect(category, isNull);
+      expect(await app.getCategoryList(), isEmpty);
     });
   });
 }

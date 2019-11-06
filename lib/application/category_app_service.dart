@@ -69,13 +69,6 @@ class CategoryAppService {
     await _repository.remove(target);
   }
 
-  Future<CategoryDto> getCategory(String id) async {
-    final targetId = CategoryId(id);
-    final target = await _repository.find(targetId);
-
-    return target == null ? null : CategoryDto(target);
-  }
-
   Future<List<CategoryDto>> getCategoryList() async {
     final categories = await _repository.findAll();
     return categories.map((x) => CategoryDto(x)).toList();
