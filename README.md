@@ -1,5 +1,7 @@
 # DDD in Dart/Flutter
 
+![Screencast](doc/images/screencast.gif)
+
 This is an outcome of my attempt to understand Domain-Driven Design and consider how I can introduce it to app development in Flutter. The attempt began when I wondered what directory structure was better and started to try to figure it out.
 
 DDD may be too much for a small app like this, resulting in unnecessarily bloated code, but should benefit more in development of larger apps.
