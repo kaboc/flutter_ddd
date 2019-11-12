@@ -1,5 +1,7 @@
+import 'package:meta/meta.dart';
 import 'package:flutter_ddd/common/exception.dart';
 
+@immutable
 class NoteTitle {
   final String value;
 
