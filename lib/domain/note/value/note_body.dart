@@ -1,4 +1,4 @@
-import 'package:meta/meta.dart';
+import 'package:meta/meta.dart' show immutable;
 import 'package:flutter_ddd/common/exception.dart';
 
 @immutable
