@@ -9,10 +9,7 @@ class Category {
   final CategoryId id;
   CategoryName _name;
 
-  Category({@required this.id, @required CategoryName name})
-      : assert(id != null),
-        assert(name != null),
-        _name = name;
+  Category({@required this.id, @required CategoryName name}) : _name = name;
 
   CategoryName get name => _name;
 

@@ -20,11 +20,7 @@ class Note {
     @required NoteTitle title,
     @required NoteBody body,
     @required CategoryId categoryId,
-  })  : assert(id != null),
-        assert(title != null),
-        assert(body != null),
-        assert(categoryId != null),
-        _title = title,
+  })  : _title = title,
         _body = body,
         _categoryId = categoryId;
 
