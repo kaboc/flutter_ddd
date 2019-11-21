@@ -26,9 +26,13 @@ class NoteRepository implements NoteRepositoryBase {
   }
 
   @override
+  Future<T> transaction<T>(Function f) async {
+    return _dbHelper.transaction(() => f());
+  }
+
+  @override
   Future<Note> find(NoteId id) async {
-    final db = await _dbHelper.db;
-    final list = await db.rawQuery(
+    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT * FROM notes WHERE id = ?',
       [id.value],
     );
@@ -38,8 +42,7 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<Note> findByTitle(NoteTitle title) async {
-    final db = await _dbHelper.db;
-    final list = await db.rawQuery(
+    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT * FROM notes WHERE title = ?',
       [title.value],
     );
@@ -49,8 +52,7 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<List<Note>> findByCategory(CategoryId categoryId) async {
-    final db = await _dbHelper.db;
-    final list = await db.rawQuery(
+    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT * FROM notes WHERE category_id = ? ORDER BY title',
       [categoryId.value],
     );
@@ -64,8 +66,7 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<int> countByCategory(CategoryId categoryId) async {
-    final db = await _dbHelper.db;
-    final list = await db.rawQuery(
+    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT COUNT(*) AS cnt FROM notes WHERE category_id = ?',
       [categoryId.value],
     );
@@ -75,8 +76,7 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<void> save(Note note) async {
-    final db = await _dbHelper.db;
-    await db.rawInsert(
+    await (_dbHelper.txn ?? await _dbHelper.db).rawInsert(
       '''
         INSERT OR REPLACE INTO notes
         (id, title, body, category_id) VALUES (?, ?, ?, ?)
@@ -92,7 +92,9 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<void> remove(Note note) async {
-    final db = await _dbHelper.db;
-    await db.rawDelete('DELETE FROM notes WHERE id = ?', [note.id.value]);
+    await (_dbHelper.txn ?? await _dbHelper.db).rawDelete(
+      'DELETE FROM notes WHERE id = ?',
+      [note.id.value],
+    );
   }
 }

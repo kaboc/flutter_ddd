@@ -20,9 +20,13 @@ class CategoryRepository implements CategoryRepositoryBase {
   }
 
   @override
+  Future<T> transaction<T>(Function f) async {
+    return _dbHelper.transaction(() => f());
+  }
+
+  @override
   Future<Category> find(CategoryId id) async {
-    final db = await _dbHelper.db;
-    final list = await db.rawQuery(
+    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT * FROM categories WHERE id = ?',
       [id.value],
     );
@@ -32,8 +36,7 @@ class CategoryRepository implements CategoryRepositoryBase {
 
   @override
   Future<Category> findByName(CategoryName name) async {
-    final db = await _dbHelper.db;
-    final list = await db.rawQuery(
+    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT * FROM categories WHERE name = ?',
       [name.value],
     );
@@ -43,8 +46,9 @@ class CategoryRepository implements CategoryRepositoryBase {
 
   @override
   Future<List<Category>> findAll() async {
-    final db = await _dbHelper.db;
-    final list = await db.rawQuery('SELECT * FROM categories ORDER BY name');
+    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
+      'SELECT * FROM categories ORDER BY name',
+    );
 
     if (list.isEmpty) {
       return <Category>[];
@@ -55,8 +59,7 @@ class CategoryRepository implements CategoryRepositoryBase {
 
   @override
   Future<void> save(Category category) async {
-    final db = await _dbHelper.db;
-    await db.rawInsert(
+    await (_dbHelper.txn ?? await _dbHelper.db).rawInsert(
       'INSERT OR REPLACE INTO categories (id, name) VALUES (?, ?)',
       [category.id.value, category.name.value],
     );
@@ -64,8 +67,7 @@ class CategoryRepository implements CategoryRepositoryBase {
 
   @override
   Future<void> remove(Category category) async {
-    final db = await _dbHelper.db;
-    await db.rawDelete(
+    await (_dbHelper.txn ?? await _dbHelper.db).rawDelete(
       'DELETE FROM categories WHERE id = ?',
       [category.id.value],
     );

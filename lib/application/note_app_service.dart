@@ -28,11 +28,13 @@ class NoteAppService {
       categoryId: CategoryId(categoryId),
     );
 
-    if (await _service.isDuplicated(note.title)) {
-      throw NotUniqueException('Note title: ${note.title.value}');
-    } else {
-      await _repository.save(note);
-    }
+    await _repository.transaction(() async {
+      if (await _service.isDuplicated(note.title)) {
+        throw NotUniqueException('Note title: ${note.title.value}');
+      } else {
+        await _repository.save(note);
+      }
+    });
   }
 
   Future<void> updateNote({
@@ -42,36 +44,40 @@ class NoteAppService {
     @required String categoryId,
   }) async {
     final targetId = NoteId(id);
-    final target = await _repository.find(targetId);
 
-    if (target == null) {
-      throw NotFoundException('ID: $targetId');
-    }
+    await _repository.transaction(() async {
+      final target = await _repository.find(targetId);
+      if (target == null) {
+        throw NotFoundException('ID: $targetId');
+      }
 
-    final newTitle = NoteTitle(title);
-    if (newTitle != target.title && await _service.isDuplicated(newTitle)) {
-      throw NotUniqueException('Note title: ${newTitle.value}');
-    }
-    target.changeTitle(newTitle);
+      final newTitle = NoteTitle(title);
+      if (newTitle != target.title && await _service.isDuplicated(newTitle)) {
+        throw NotUniqueException('Note title: ${newTitle.value}');
+      }
+      target.changeTitle(newTitle);
 
-    final newBody = NoteBody(body);
-    target.changeBody(newBody);
+      final newBody = NoteBody(body);
+      target.changeBody(newBody);
 
-    final newCategoryId = CategoryId(categoryId);
-    target.changeCategory(newCategoryId);
+      final newCategoryId = CategoryId(categoryId);
+      target.changeCategory(newCategoryId);
 
-    await _repository.save(target);
+      await _repository.save(target);
+    });
   }
 
   Future<void> removeNote(String id) async {
     final targetId = NoteId(id);
-    final target = await _repository.find(targetId);
 
-    if (target == null) {
-      throw NotFoundException('ID: $targetId');
-    }
+    await _repository.transaction(() async {
+      final target = await _repository.find(targetId);
+      if (target == null) {
+        throw NotFoundException('ID: $targetId');
+      }
 
-    await _repository.remove(target);
+      await _repository.remove(target);
+    });
   }
 
   Future<NoteDto> getNote(String id) async {
@@ -84,6 +90,7 @@ class NoteAppService {
   Future<List<NoteSummaryDto>> getNoteList(String categoryId) async {
     final targetId = CategoryId(categoryId);
     final notes = await _repository.findByCategory(targetId);
+
     return notes.map((x) => NoteSummaryDto(x)).toList();
   }
 }

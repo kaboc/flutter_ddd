@@ -21,11 +21,13 @@ class CategoryAppService {
   Future<void> registerCategory({@required String name}) async {
     final category = _factory.create(name: name);
 
-    if (await _service.isDuplicated(category.name)) {
-      throw NotUniqueException('Category name: ${category.name.value}');
-    } else {
-      await _repository.save(category);
-    }
+    await _repository.transaction(() async {
+      if (await _service.isDuplicated(category.name)) {
+        throw NotUniqueException('Category name: ${category.name.value}');
+      } else {
+        await _repository.save(category);
+      }
+    });
   }
 
   Future<void> updateCategory({
@@ -33,35 +35,39 @@ class CategoryAppService {
     @required String name,
   }) async {
     final targetId = CategoryId(id);
-    final target = await _repository.find(targetId);
 
-    if (target == null) {
-      throw NotFoundException('ID: $targetId');
-    }
+    await _repository.transaction(() async {
+      final target = await _repository.find(targetId);
+      if (target == null) {
+        throw NotFoundException('ID: $targetId');
+      }
 
-    final newName = CategoryName(name);
-    if (newName != target.name && await _service.isDuplicated(newName)) {
-      throw NotUniqueException('Category name: ${newName.value}');
-    }
-    target.changeName(newName);
+      final newName = CategoryName(name);
+      if (newName != target.name && await _service.isDuplicated(newName)) {
+        throw NotUniqueException('Category name: ${newName.value}');
+      }
+      target.changeName(newName);
 
-    await _repository.save(target);
+      await _repository.save(target);
+    });
   }
 
   Future<void> removeCategory(String id) async {
     final targetId = CategoryId(id);
-    final target = await _repository.find(targetId);
 
-    if (target == null) {
-      throw NotFoundException('ID: $targetId');
-    }
+    await _repository.transaction(() async {
+      final target = await _repository.find(targetId);
+      if (target == null) {
+        throw NotFoundException('ID: $targetId');
+      }
 
-    if (await _noteRepository.countByCategory(targetId) > 0) {
-      throw GenericException(
-          'Cannot be removed;\nthis category contains notes.');
-    }
+      if (await _noteRepository.countByCategory(targetId) > 0) {
+        throw GenericException(
+            'Cannot be removed;\nthis category contains notes.');
+      }
 
-    await _repository.remove(target);
+      await _repository.remove(target);
+    });
   }
 
   Future<List<CategoryDto>> getCategoryList() async {

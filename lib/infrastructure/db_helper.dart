@@ -4,7 +4,9 @@ import 'package:path/path.dart';
 class DbHelper {
   static const _DB_FILE = 'ddd.db';
   static const _DB_VERSION = 1;
+
   Database _db;
+  Transaction _txn;
 
   Future<Database> get db async {
     if (_db != null) {
@@ -46,8 +48,22 @@ class DbHelper {
     return _db;
   }
 
+  Transaction get txn => _txn;
+
   Future<void> close() async {
     await _db?.close();
     _db = null;
+  }
+
+  Future<T> transaction<T>(Function f) async {
+    return db.then((db) async {
+      return db.transaction((txn) async {
+        _txn = txn;
+        return f();
+      }).then((v) {
+        _txn = null;
+        return v;
+      });
+    });
   }
 }

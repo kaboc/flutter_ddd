@@ -7,6 +7,11 @@ class CategoryRepository implements CategoryRepositoryBase {
   final _data = <CategoryId, Category>{};
 
   @override
+  Future<T> transaction<T>(Function f) {
+    return f();
+  }
+
+  @override
   Future<Category> find(CategoryId id) {
     final category = _data[id];
 
