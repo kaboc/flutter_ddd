@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart' show required;
-import 'package:flutter/material.dart';
 import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/domain/note/note_factory_base.dart';
 import 'package:flutter_ddd/domain/note/note_service.dart';

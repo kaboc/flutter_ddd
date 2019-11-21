@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart' show required;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_ddd/presentation/model/note_model.dart';

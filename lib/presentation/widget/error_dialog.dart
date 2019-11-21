@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart' show required;
 import 'package:flutter/material.dart';
 
 class ErrorDialog {

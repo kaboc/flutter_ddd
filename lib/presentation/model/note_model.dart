@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart' show required;
 import 'package:flutter/material.dart';
 import 'package:flutter_ddd/application/note_app_service.dart';
 

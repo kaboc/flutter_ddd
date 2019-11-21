@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart' show required;
 import 'package:flutter/material.dart';
 import 'package:flutter_ddd/presentation/widget/note/edit_dialog.dart';
 
