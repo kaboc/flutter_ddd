@@ -1,6 +1,8 @@
 import 'package:flutter_ddd/domain/note/note.dart';
 import 'package:flutter_ddd/domain/note/note_repository_base.dart';
 
+export 'package:flutter_ddd/domain/note/note_repository_base.dart';
+
 class NoteRepository implements NoteRepositoryBase {
   final _data = <NoteId, Note>{};
 
@@ -76,5 +78,9 @@ class NoteRepository implements NoteRepositoryBase {
   Future<void> remove(Note note) {
     _data.remove(note.id);
     return null;
+  }
+
+  void clear() {
+    _data.clear();
   }
 }

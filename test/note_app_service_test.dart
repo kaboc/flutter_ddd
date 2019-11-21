@@ -1,23 +1,26 @@
 import 'package:test/test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:flutter_ddd/application/note_app_service.dart';
 import 'package:flutter_ddd/infrastructure/note/note_factory.dart';
 import 'infrastructure/note_repository.dart';
 
 void main() {
+  final repository = NoteRepository();
+
+  GetIt.instance.registerSingleton<NoteRepositoryBase>(repository);
+
   group('Note', () {
     test('registering existing title should fail', () async {
-      final app = NoteAppService(
-        factory: NoteFactory(),
-        repository: NoteRepository(),
-      );
+      repository.clear();
 
-      bool isFailed = false;
-
+      final app = NoteAppService(factory: const NoteFactory());
       await app.registerNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id',
       );
+
+      bool isSuccessful = true;
 
       try {
         await app.registerNote(
@@ -27,19 +30,17 @@ void main() {
         );
       } catch (e) {
         if (e.toString().contains('already exists')) {
-          isFailed = true;
+          isSuccessful = false;
         }
       }
 
-      expect(isFailed, true);
+      expect(isSuccessful, false);
     });
 
     test('new note should be registered', () async {
-      final app = NoteAppService(
-        factory: NoteFactory(),
-        repository: NoteRepository(),
-      );
+      repository.clear();
 
+      final app = NoteAppService(factory: const NoteFactory());
       await app.registerNote(
         title: 'note title',
         body: 'note body',
@@ -51,13 +52,9 @@ void main() {
     });
 
     test('update without change in title should be successful', () async {
-      final app = NoteAppService(
-        factory: NoteFactory(),
-        repository: NoteRepository(),
-      );
+      repository.clear();
 
-      bool isSuccessful = true;
-
+      final app = NoteAppService(factory: const NoteFactory());
       await app.registerNote(
         title: 'note title',
         body: 'note body',
@@ -65,6 +62,8 @@ void main() {
       );
 
       final notes = await app.getNoteList('category id');
+
+      bool isSuccessful = true;
 
       try {
         await app.updateNote(
@@ -81,11 +80,9 @@ void main() {
     });
 
     test('note should be moved to another category', () async {
-      final app = NoteAppService(
-        factory: NoteFactory(),
-        repository: NoteRepository(),
-      );
+      repository.clear();
 
+      final app = NoteAppService(factory: const NoteFactory());
       await app.registerNote(
         title: 'note title',
         body: 'note body',
@@ -110,11 +107,9 @@ void main() {
     });
 
     test('note should be removed', () async {
-      final app = NoteAppService(
-        factory: NoteFactory(),
-        repository: NoteRepository(),
-      );
+      repository.clear();
 
+      final app = NoteAppService(factory: const NoteFactory());
       await app.registerNote(
         title: 'note title',
         body: 'note body',

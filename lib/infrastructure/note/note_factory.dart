@@ -3,6 +3,8 @@ import 'package:uuid/uuid.dart';
 import 'package:flutter_ddd/domain/note/note_factory_base.dart';
 
 class NoteFactory implements NoteFactoryBase {
+  const NoteFactory();
+
   @override
   Note create({
     @required NoteTitle title,

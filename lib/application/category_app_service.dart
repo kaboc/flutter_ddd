@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart' show required;
+import 'package:get_it/get_it.dart';
 import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/domain/category/category_factory_base.dart';
 import 'package:flutter_ddd/domain/category/category_repository_base.dart';
@@ -10,18 +11,12 @@ export 'package:flutter_ddd/application/dto/category_dto.dart';
 
 class CategoryAppService {
   final CategoryFactoryBase _factory;
-  final CategoryRepositoryBase _repository;
-  final CategoryService _service;
-  final NoteRepositoryBase _noteRepository;
+  final _service = CategoryService();
+  final _repository = GetIt.instance<CategoryRepositoryBase>();
+  final _noteRepository = GetIt.instance<NoteRepositoryBase>();
 
-  CategoryAppService({
-    @required CategoryFactoryBase factory,
-    @required CategoryRepositoryBase repository,
-    @required NoteRepositoryBase noteRepository,
-  })  : _factory = factory,
-        _repository = repository,
-        _service = CategoryService(repository: repository),
-        _noteRepository = noteRepository;
+  CategoryAppService({@required CategoryFactoryBase factory})
+      : _factory = factory;
 
   Future<void> registerCategory({@required String name}) async {
     final category = _factory.create(name: name);

@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart' show required;
+import 'package:get_it/get_it.dart';
 import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/domain/note/note_factory_base.dart';
 import 'package:flutter_ddd/domain/note/note_service.dart';
@@ -11,15 +12,10 @@ export 'package:flutter_ddd/application/dto/note_summary_dto.dart';
 
 class NoteAppService {
   final NoteFactoryBase _factory;
-  final NoteRepositoryBase _repository;
-  final NoteService _service;
+  final NoteService _service = NoteService();
+  final NoteRepositoryBase _repository = GetIt.instance<NoteRepositoryBase>();
 
-  NoteAppService({
-    @required NoteFactoryBase factory,
-    @required NoteRepositoryBase repository,
-  })  : _factory = factory,
-        _repository = repository,
-        _service = NoteService(repository: repository);
+  NoteAppService({@required NoteFactoryBase factory}) : _factory = factory;
 
   Future<void> registerNote({
     @required String title,

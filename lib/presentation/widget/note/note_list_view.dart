@@ -6,7 +6,9 @@ import 'package:flutter_ddd/presentation/model/note_model.dart';
 import 'package:flutter_ddd/presentation/widget/note/remove_button.dart';
 
 class NoteListView extends StatelessWidget {
-  const NoteListView();
+  final CategoryDto category;
+
+  const NoteListView({@required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class NoteListView extends StatelessWidget {
           children: <Widget>[
             NoteUpdateButton(
               noteId: note.id,
-              category: Provider.of<CategoryDto>(context),
+              category: category,
             ),
             NoteRemoveButton(noteId: note.id),
           ],

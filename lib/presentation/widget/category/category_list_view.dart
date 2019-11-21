@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_ddd/infrastructure/db_helper.dart';
 import 'package:flutter_ddd/presentation/widget/category/update_button.dart';
 import 'package:flutter_ddd/presentation/model/category_model.dart';
 import 'package:flutter_ddd/presentation/page/note_list.dart';
@@ -48,19 +47,9 @@ class CategoryListView extends StatelessWidget {
         ),
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => MultiProvider(
-              providers: [
-                Provider<DbHelper>.value(
-                  value: Provider.of<DbHelper>(context),
-                ),
-                ChangeNotifierProvider<CategoryModel>.value(
-                  value: models,
-                ),
-                Provider<CategoryDto>.value(
-                  value: category,
-                ),
-              ],
-              child: const NoteListPage(),
+            builder: (_) => ChangeNotifierProvider<CategoryModel>.value(
+              value: models,
+              child: NoteListPage(category: category),
             ),
           ),
         ),

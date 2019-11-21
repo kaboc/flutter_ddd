@@ -1,40 +1,44 @@
 import 'package:test/test.dart';
+import 'package:get_it/get_it.dart';
 import 'package:flutter_ddd/application/category_app_service.dart';
 import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
 import 'infrastructure/category_repository.dart';
 import 'infrastructure/note_repository.dart';
 
 void main() {
+  final repository = NoteRepository();
+  final categoryRepository = CategoryRepository();
+
+  final getIt = GetIt.instance;
+  getIt.registerSingleton<NoteRepositoryBase>(repository);
+  getIt.registerSingleton<CategoryRepositoryBase>(categoryRepository);
+
   group('Category', () {
     test('registering existing name should fail', () async {
-      final app = CategoryAppService(
-        factory: CategoryFactory(),
-        repository: CategoryRepository(),
-        noteRepository: NoteRepository(),
-      );
+      repository.clear();
+      categoryRepository.clear();
 
-      bool isFailed = false;
-
+      final app = CategoryAppService(factory: const CategoryFactory());
       await app.registerCategory(name: 'category name');
+
+      bool isSuccessful = true;
 
       try {
         await app.registerCategory(name: 'category name');
       } catch (e) {
         if (e.toString().contains('already exists')) {
-          isFailed = true;
+          isSuccessful = false;
         }
       }
 
-      expect(isFailed, true);
+      expect(isSuccessful, false);
     });
 
     test('new category should be registered', () async {
-      final app = CategoryAppService(
-        factory: CategoryFactory(),
-        repository: CategoryRepository(),
-        noteRepository: NoteRepository(),
-      );
+      repository.clear();
+      categoryRepository.clear();
 
+      final app = CategoryAppService(factory: const CategoryFactory());
       await app.registerCategory(name: 'category name');
 
       final categories = await app.getCategoryList();
@@ -42,17 +46,15 @@ void main() {
     });
 
     test('update without change should be successful', () async {
-      final app = CategoryAppService(
-        factory: CategoryFactory(),
-        repository: CategoryRepository(),
-        noteRepository: NoteRepository(),
-      );
+      repository.clear();
+      categoryRepository.clear();
 
-      bool isSuccessful = true;
-
+      final app = CategoryAppService(factory: const CategoryFactory());
       await app.registerCategory(name: 'category name');
 
       final categories = await app.getCategoryList();
+
+      bool isSuccessful = true;
 
       try {
         await app.updateCategory(
@@ -67,12 +69,10 @@ void main() {
     });
 
     test('category should be removed', () async {
-      final app = CategoryAppService(
-        factory: CategoryFactory(),
-        repository: CategoryRepository(),
-        noteRepository: NoteRepository(),
-      );
+      repository.clear();
+      categoryRepository.clear();
 
+      final app = CategoryAppService(factory: const CategoryFactory());
       await app.registerCategory(name: 'category name');
 
       final categories = await app.getCategoryList();

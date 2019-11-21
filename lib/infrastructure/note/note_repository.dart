@@ -1,20 +1,13 @@
+import 'package:meta/meta.dart';
 import 'package:flutter_ddd/domain/note/note_repository_base.dart';
 import 'package:flutter_ddd/infrastructure/db_helper.dart';
 
-export 'package:flutter_ddd/infrastructure/db_helper.dart';
+export 'package:flutter_ddd/domain/note/note_repository_base.dart';
 
 class NoteRepository implements NoteRepositoryBase {
-  static NoteRepository _instance;
-  static DbHelper _dbHelper;
-  String test;
+  final DbHelper _dbHelper;
 
-  factory NoteRepository(DbHelper dbHelper) {
-    _instance ??= NoteRepository._();
-    _dbHelper = dbHelper;
-    return _instance;
-  }
-
-  NoteRepository._();
+  const NoteRepository({@required DbHelper dbHelper}) : _dbHelper = dbHelper;
 
   Note toNote(Map<String, dynamic> data) {
     final String id = data['id'];

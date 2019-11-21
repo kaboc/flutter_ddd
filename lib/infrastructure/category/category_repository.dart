@@ -1,19 +1,13 @@
+import 'package:meta/meta.dart';
 import 'package:flutter_ddd/domain/category/category_repository_base.dart';
 import 'package:flutter_ddd/infrastructure/db_helper.dart';
 
-export 'package:flutter_ddd/infrastructure/db_helper.dart';
+export 'package:flutter_ddd/domain/category/category_repository_base.dart';
 
 class CategoryRepository implements CategoryRepositoryBase {
-  static CategoryRepository _instance;
-  static DbHelper _dbHelper;
+  final DbHelper _dbHelper;
 
-  factory CategoryRepository(DbHelper dbHelper) {
-    _instance ??= CategoryRepository._();
-    _dbHelper = dbHelper;
-    return _instance;
-  }
-
-  CategoryRepository._();
+  const CategoryRepository({@required DbHelper dbHelper}) : _dbHelper = dbHelper;
 
   Category toCategory(Map<String, dynamic> data) {
     final String id = data['id'];

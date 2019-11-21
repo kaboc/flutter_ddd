@@ -1,6 +1,8 @@
 import 'package:flutter_ddd/domain/category/category.dart';
 import 'package:flutter_ddd/domain/category/category_repository_base.dart';
 
+export 'package:flutter_ddd/domain/category/category_repository_base.dart';
+
 class CategoryRepository implements CategoryRepositoryBase {
   final _data = <CategoryId, Category>{};
 
@@ -55,5 +57,9 @@ class CategoryRepository implements CategoryRepositoryBase {
   Future<void> remove(Category category) {
     _data.remove(category.id);
     return null;
+  }
+
+  void clear() {
+    _data.clear();
   }
 }
