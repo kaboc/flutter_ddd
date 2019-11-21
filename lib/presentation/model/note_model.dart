@@ -4,13 +4,12 @@ import 'package:flutter_ddd/application/note_app_service.dart';
 export 'package:flutter_ddd/application/dto/note_summary_dto.dart';
 
 class NoteModel with ChangeNotifier {
-  final NoteAppService app;
+  final NoteAppService _app;
   final String _categoryId;
 
-  NoteModel({
-    @required this.app,
-    @required String categoryId,
-  }) : _categoryId = categoryId {
+  NoteModel({@required NoteAppService app, @required String categoryId})
+      : _app = app,
+        _categoryId = categoryId {
     _updateList();
   }
 
@@ -24,7 +23,7 @@ class NoteModel with ChangeNotifier {
     @required String body,
     @required String categoryId,
   }) async {
-    await app.registerNote(
+    await _app.registerNote(
       title: title,
       body: body,
       categoryId: categoryId,
@@ -38,7 +37,7 @@ class NoteModel with ChangeNotifier {
     @required String body,
     @required String categoryId,
   }) async {
-    await app.updateNote(
+    await _app.updateNote(
       id: id,
       title: title,
       body: body,
@@ -48,16 +47,16 @@ class NoteModel with ChangeNotifier {
   }
 
   Future<void> removeNote(String id) async {
-    await app.removeNote(id);
+    await _app.removeNote(id);
     _updateList();
   }
 
   Future<NoteDto> getNote(String id) async {
-    return await app.getNote(id);
+    return await _app.getNote(id);
   }
 
   void _updateList() {
-    app.getNoteList(_categoryId).then((list) {
+    _app.getNoteList(_categoryId).then((list) {
       _list = list;
       notifyListeners();
     });

@@ -4,9 +4,9 @@ import 'package:flutter_ddd/application/category_app_service.dart';
 export 'package:flutter_ddd/application/dto/category_dto.dart';
 
 class CategoryModel with ChangeNotifier {
-  final CategoryAppService app;
+  final CategoryAppService _app;
 
-  CategoryModel({@required this.app}) {
+  CategoryModel({@required CategoryAppService app}) : _app = app {
     _updateList();
   }
 
@@ -17,7 +17,7 @@ class CategoryModel with ChangeNotifier {
   Future<void> registerCategory({
     @required String name,
   }) async {
-    await app.registerCategory(name: name);
+    await _app.registerCategory(name: name);
     _updateList();
   }
 
@@ -25,17 +25,17 @@ class CategoryModel with ChangeNotifier {
     @required String id,
     @required String name,
   }) async {
-    await app.updateCategory(id: id, name: name);
+    await _app.updateCategory(id: id, name: name);
     _updateList();
   }
 
   Future<void> removeCategory(String id) async {
-    await app.removeCategory(id);
+    await _app.removeCategory(id);
     _updateList();
   }
 
   void _updateList() {
-    app.getCategoryList().then((list) {
+    _app.getCategoryList().then((list) {
       _list = list;
       notifyListeners();
     });
