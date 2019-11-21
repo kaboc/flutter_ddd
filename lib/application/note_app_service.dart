@@ -27,9 +27,9 @@ class NoteAppService {
     @required String categoryId,
   }) async {
     final note = _factory.create(
-      NoteTitle(title),
-      NoteBody(body),
-      CategoryId(categoryId),
+      title: NoteTitle(title),
+      body: NoteBody(body),
+      categoryId: CategoryId(categoryId),
     );
 
     if (await _service.isDuplicated(note.title)) {

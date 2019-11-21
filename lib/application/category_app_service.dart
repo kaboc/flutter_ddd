@@ -24,7 +24,7 @@ class CategoryAppService {
         _noteRepository = noteRepository;
 
   Future<void> registerCategory({@required String name}) async {
-    final category = _factory.create(name);
+    final category = _factory.create(name: name);
 
     if (await _service.isDuplicated(category.name)) {
       throw NotUniqueException('Category name: ${category.name.value}');
