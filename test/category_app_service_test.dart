@@ -61,7 +61,7 @@ void main() {
           id: categories[0].id,
           name: 'category name',
         );
-      } catch (e) {
+      } catch (_) {
         isSuccessful = false;
       }
 

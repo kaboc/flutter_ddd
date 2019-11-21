@@ -72,7 +72,7 @@ void main() {
           body: 'note body 2',
           categoryId: 'category id',
         );
-      } catch (e) {
+      } catch (_) {
         isSuccessful = false;
       }
 

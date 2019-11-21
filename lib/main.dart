@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
 
           return helper;
         },
-        dispose: (_, dbHelper) => dbHelper.close(),
+        dispose: (_, helper) => helper.close(),
         child: const CategoryListPage(),
       ),
     );
