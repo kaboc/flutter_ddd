@@ -19,12 +19,12 @@ void main() {
       categoryRepository.clear();
 
       final app = CategoryAppService(factory: const CategoryFactory());
-      await app.registerCategory(name: 'category name');
+      await app.saveCategory(name: 'category name');
 
       bool isSuccessful = true;
 
       try {
-        await app.registerCategory(name: 'category name');
+        await app.saveCategory(name: 'category name');
       } catch (e) {
         if (e.toString().contains('already exists')) {
           isSuccessful = false;
@@ -39,7 +39,7 @@ void main() {
       categoryRepository.clear();
 
       final app = CategoryAppService(factory: const CategoryFactory());
-      await app.registerCategory(name: 'category name');
+      await app.saveCategory(name: 'category name');
 
       final categories = await app.getCategoryList();
       expect(categories.length, 1);
@@ -50,7 +50,7 @@ void main() {
       categoryRepository.clear();
 
       final app = CategoryAppService(factory: const CategoryFactory());
-      await app.registerCategory(name: 'category name');
+      await app.saveCategory(name: 'category name');
 
       final categories = await app.getCategoryList();
 
@@ -73,7 +73,7 @@ void main() {
       categoryRepository.clear();
 
       final app = CategoryAppService(factory: const CategoryFactory());
-      await app.registerCategory(name: 'category name');
+      await app.saveCategory(name: 'category name');
 
       final categories = await app.getCategoryList();
       await app.removeCategory(categories[0].id);

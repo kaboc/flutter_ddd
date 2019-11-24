@@ -14,10 +14,10 @@ class CategoryModel with ChangeNotifier {
 
   List<CategoryDto> get list => _list == null ? null : List.unmodifiable(_list);
 
-  Future<void> registerCategory({
+  Future<void> saveCategory({
     @required String name,
   }) async {
-    await _app.registerCategory(name: name);
+    await _app.saveCategory(name: name);
     _updateList();
   }
 

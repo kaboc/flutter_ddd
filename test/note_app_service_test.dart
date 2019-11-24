@@ -14,7 +14,7 @@ void main() {
       repository.clear();
 
       final app = NoteAppService(factory: const NoteFactory());
-      await app.registerNote(
+      await app.saveNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id',
@@ -23,7 +23,7 @@ void main() {
       bool isSuccessful = true;
 
       try {
-        await app.registerNote(
+        await app.saveNote(
           title: 'note title',
           body: 'note body 2',
           categoryId: 'category id 2',
@@ -41,7 +41,7 @@ void main() {
       repository.clear();
 
       final app = NoteAppService(factory: const NoteFactory());
-      await app.registerNote(
+      await app.saveNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id',
@@ -55,7 +55,7 @@ void main() {
       repository.clear();
 
       final app = NoteAppService(factory: const NoteFactory());
-      await app.registerNote(
+      await app.saveNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id',
@@ -83,7 +83,7 @@ void main() {
       repository.clear();
 
       final app = NoteAppService(factory: const NoteFactory());
-      await app.registerNote(
+      await app.saveNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id 1',
@@ -110,7 +110,7 @@ void main() {
       repository.clear();
 
       final app = NoteAppService(factory: const NoteFactory());
-      await app.registerNote(
+      await app.saveNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id',

@@ -5,8 +5,8 @@ import 'package:flutter_ddd/application/note_app_service.dart';
 import 'package:flutter_ddd/application/dto/category_dto.dart';
 import 'package:flutter_ddd/infrastructure/note/note_factory.dart';
 import 'package:flutter_ddd/presentation/model/note_model.dart';
-import 'package:flutter_ddd/presentation/widget/note/register_button.dart';
 import 'package:flutter_ddd/presentation/widget/note/note_list_view.dart';
+import 'package:flutter_ddd/presentation/widget/note/save_button.dart';
 
 class NoteListPage extends StatelessWidget {
   final CategoryDto category;
@@ -32,7 +32,7 @@ class NoteListPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(title: Text(category.name)),
         body: NoteListView(category: category),
-        floatingActionButton: NoteRegisterButton(category: category),
+        floatingActionButton: NoteSaveButton(category: category),
       ),
     );
   }

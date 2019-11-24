@@ -18,7 +18,7 @@ class CategoryAppService {
   CategoryAppService({@required CategoryFactoryBase factory})
       : _factory = factory;
 
-  Future<void> registerCategory({@required String name}) async {
+  Future<void> saveCategory({@required String name}) async {
     final category = _factory.create(name: name);
 
     await _repository.transaction(() async {

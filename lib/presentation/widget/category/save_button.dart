@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_ddd/presentation/model/category_model.dart';
 import 'package:flutter_ddd/presentation/widget/category/edit_dialog.dart';
 
-class CategoryRegisterButton extends StatelessWidget {
+class CategorySaveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
@@ -11,10 +11,10 @@ class CategoryRegisterButton extends StatelessWidget {
       onPressed: () => EditDialog(
         context: context,
         heading: 'New category',
-        buttonLabel: 'REGISTER',
+        buttonLabel: 'SAVE',
         onSave: ({name}) async {
           final model = Provider.of<CategoryModel>(context, listen: false);
-          await model.registerCategory(name: name);
+          await model.saveCategory(name: name);
         },
       ),
     );

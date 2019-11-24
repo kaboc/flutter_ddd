@@ -18,12 +18,12 @@ class NoteModel with ChangeNotifier {
   List<NoteSummaryDto> get list =>
       _list == null ? null : List.unmodifiable(_list);
 
-  Future<void> registerNote({
+  Future<void> saveNote({
     @required String title,
     @required String body,
     @required String categoryId,
   }) async {
-    await _app.registerNote(
+    await _app.saveNote(
       title: title,
       body: body,
       categoryId: categoryId,

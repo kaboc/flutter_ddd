@@ -17,7 +17,7 @@ class NoteAppService {
 
   NoteAppService({@required NoteFactoryBase factory}) : _factory = factory;
 
-  Future<void> registerNote({
+  Future<void> saveNote({
     @required String title,
     @required String body,
     @required String categoryId,
