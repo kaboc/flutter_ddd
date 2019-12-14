@@ -16,10 +16,10 @@ class CategoryListPage extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<CategoryModel>(
-          builder: (_) => CategoryModel(app: app),
+          create: (_) => CategoryModel(app: app),
         ),
         ChangeNotifierProvider<TextEditingController>(
-          builder: (_) => TextEditingController(),
+          create: (_) => TextEditingController(),
         ),
       ],
       child: Scaffold(

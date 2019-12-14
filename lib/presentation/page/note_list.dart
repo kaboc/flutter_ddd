@@ -20,13 +20,13 @@ class NoteListPage extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<NoteModel>(
-          builder: (_) => NoteModel(app: app, categoryId: category.id),
+          create: (_) => NoteModel(app: app, categoryId: category.id),
         ),
         ChangeNotifierProvider<TitleEditingController>(
-          builder: (_) => TitleEditingController(),
+          create: (_) => TitleEditingController(),
         ),
         ChangeNotifierProvider<BodyEditingController>(
-          builder: (_) => BodyEditingController(),
+          create: (_) => BodyEditingController(),
         ),
       ],
       child: Scaffold(

@@ -14,14 +14,14 @@ dependencies:
 
   uuid: ^2.0.4
   sqflite: ^1.1.7
-  provider: ^3.1.0
+  provider: ^3.2.0
   get_it: ^3.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  test: 1.6.3
+  test: 1.9.4
 
 flutter:
   uses-material-design: true
