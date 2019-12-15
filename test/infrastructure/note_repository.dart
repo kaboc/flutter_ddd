@@ -7,7 +7,7 @@ class NoteRepository implements NoteRepositoryBase {
   final _data = <NoteId, Note>{};
 
   @override
-  Future<T> transaction<T>(Function f) {
+  Future<T> transaction<T>(Future<T> Function() f) {
     return f();
   }
 

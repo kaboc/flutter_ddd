@@ -55,9 +55,9 @@ class DbHelper {
     _db = null;
   }
 
-  Future<T> transaction<T>(Function f) async {
+  Future<T> transaction<T>(Future<T> Function() f) async {
     return db.then((db) async {
-      return db.transaction((txn) async {
+      return db.transaction<T>((txn) async {
         _txn = txn;
         return f();
       }).then((v) {

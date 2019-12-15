@@ -10,8 +10,8 @@ class CategoryRepository implements CategoryRepositoryBase {
   const CategoryRepository({@required DbHelper dbHelper}) : _dbHelper = dbHelper;
 
   Category toCategory(Map<String, dynamic> data) {
-    final String id = data['id'];
-    final String name = data['name'];
+    final id = data['id'].toString();
+    final name = data['name'].toString();
 
     return Category(
       id: CategoryId(id),
@@ -20,15 +20,15 @@ class CategoryRepository implements CategoryRepositoryBase {
   }
 
   @override
-  Future<T> transaction<T>(Function f) async {
-    return _dbHelper.transaction(() => f());
+  Future<T> transaction<T>(Future<T> Function() f) async {
+    return _dbHelper.transaction<T>(() => f());
   }
 
   @override
   Future<Category> find(CategoryId id) async {
     final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT * FROM categories WHERE id = ?',
-      [id.value],
+      <String>[id.value],
     );
 
     return list.isEmpty ? null : toCategory(list[0]);
@@ -38,7 +38,7 @@ class CategoryRepository implements CategoryRepositoryBase {
   Future<Category> findByName(CategoryName name) async {
     final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT * FROM categories WHERE name = ?',
-      [name.value],
+      <String>[name.value],
     );
 
     return list.isEmpty ? null : toCategory(list[0]);
@@ -61,7 +61,7 @@ class CategoryRepository implements CategoryRepositoryBase {
   Future<void> save(Category category) async {
     await (_dbHelper.txn ?? await _dbHelper.db).rawInsert(
       'INSERT OR REPLACE INTO categories (id, name) VALUES (?, ?)',
-      [category.id.value, category.name.value],
+      <String>[category.id.value, category.name.value],
     );
   }
 
@@ -69,7 +69,7 @@ class CategoryRepository implements CategoryRepositoryBase {
   Future<void> remove(Category category) async {
     await (_dbHelper.txn ?? await _dbHelper.db).rawDelete(
       'DELETE FROM categories WHERE id = ?',
-      [category.id.value],
+      <String>[category.id.value],
     );
   }
 }

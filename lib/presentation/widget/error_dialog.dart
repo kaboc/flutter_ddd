@@ -6,7 +6,7 @@ class ErrorDialog {
     @required String message,
     VoidCallback onOk,
   }) {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (dialogContext) {
         return AlertDialog(

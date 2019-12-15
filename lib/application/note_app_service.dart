@@ -28,7 +28,7 @@ class NoteAppService {
       categoryId: CategoryId(categoryId),
     );
 
-    await _repository.transaction(() async {
+    await _repository.transaction<void>(() async {
       if (await _service.isDuplicated(note.title)) {
         throw NotUniqueException('Note title: ${note.title.value}');
       } else {
@@ -45,7 +45,7 @@ class NoteAppService {
   }) async {
     final targetId = NoteId(id);
 
-    await _repository.transaction(() async {
+    await _repository.transaction<void>(() async {
       final target = await _repository.find(targetId);
       if (target == null) {
         throw NotFoundException('ID: $targetId');
@@ -70,7 +70,7 @@ class NoteAppService {
   Future<void> removeNote(String id) async {
     final targetId = NoteId(id);
 
-    await _repository.transaction(() async {
+    await _repository.transaction<void>(() async {
       final target = await _repository.find(targetId);
       if (target == null) {
         throw NotFoundException('ID: $targetId');

@@ -21,7 +21,7 @@ class CategoryAppService {
   Future<void> saveCategory({@required String name}) async {
     final category = _factory.create(name: name);
 
-    await _repository.transaction(() async {
+    await _repository.transaction<void>(() async {
       if (await _service.isDuplicated(category.name)) {
         throw NotUniqueException('Category name: ${category.name.value}');
       } else {
@@ -36,7 +36,7 @@ class CategoryAppService {
   }) async {
     final targetId = CategoryId(id);
 
-    await _repository.transaction(() async {
+    await _repository.transaction<void>(() async {
       final target = await _repository.find(targetId);
       if (target == null) {
         throw NotFoundException('ID: $targetId');
@@ -55,7 +55,7 @@ class CategoryAppService {
   Future<void> removeCategory(String id) async {
     final targetId = CategoryId(id);
 
-    await _repository.transaction(() async {
+    await _repository.transaction<void>(() async {
       final target = await _repository.find(targetId);
       if (target == null) {
         throw NotFoundException('ID: $targetId');

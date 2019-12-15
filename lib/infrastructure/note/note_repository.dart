@@ -10,10 +10,10 @@ class NoteRepository implements NoteRepositoryBase {
   const NoteRepository({@required DbHelper dbHelper}) : _dbHelper = dbHelper;
 
   Note toNote(Map<String, dynamic> data) {
-    final String id = data['id'];
-    final String title = data['title'];
-    final String body = data['body'];
-    final String categoryId = data['category_id'];
+    final id = data['id'].toString();
+    final title = data['title'].toString();
+    final body = data['body'].toString();
+    final categoryId = data['category_id'].toString();
 
     return Note(
       id: NoteId(id),
@@ -26,15 +26,15 @@ class NoteRepository implements NoteRepositoryBase {
   }
 
   @override
-  Future<T> transaction<T>(Function f) async {
-    return _dbHelper.transaction(() => f());
+  Future<T> transaction<T>(Future<T> Function() f) async {
+    return _dbHelper.transaction<T>(() => f());
   }
 
   @override
   Future<Note> find(NoteId id) async {
     final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT * FROM notes WHERE id = ?',
-      [id.value],
+      <String>[id.value],
     );
 
     return list.isEmpty ? null : toNote(list[0]);
@@ -44,7 +44,7 @@ class NoteRepository implements NoteRepositoryBase {
   Future<Note> findByTitle(NoteTitle title) async {
     final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT * FROM notes WHERE title = ?',
-      [title.value],
+      <String>[title.value],
     );
 
     return list.isEmpty ? null : toNote(list[0]);
@@ -54,7 +54,7 @@ class NoteRepository implements NoteRepositoryBase {
   Future<List<Note>> findByCategory(CategoryId categoryId) async {
     final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT * FROM notes WHERE category_id = ? ORDER BY title',
-      [categoryId.value],
+      <String>[categoryId.value],
     );
 
     if (list.isEmpty) {
@@ -68,10 +68,10 @@ class NoteRepository implements NoteRepositoryBase {
   Future<int> countByCategory(CategoryId categoryId) async {
     final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
       'SELECT COUNT(*) AS cnt FROM notes WHERE category_id = ?',
-      [categoryId.value],
+      <String>[categoryId.value],
     );
 
-    return list[0]['cnt'];
+    return list.cast<Map<String, int>>()[0]['cnt'];
   }
 
   @override
@@ -81,7 +81,7 @@ class NoteRepository implements NoteRepositoryBase {
         INSERT OR REPLACE INTO notes
         (id, title, body, category_id) VALUES (?, ?, ?, ?)
       ''',
-      [
+      <String>[
         note.id.value,
         note.title.value,
         note.body.value,
@@ -94,7 +94,7 @@ class NoteRepository implements NoteRepositoryBase {
   Future<void> remove(Note note) async {
     await (_dbHelper.txn ?? await _dbHelper.db).rawDelete(
       'DELETE FROM notes WHERE id = ?',
-      [note.id.value],
+      <String>[note.id.value],
     );
   }
 }

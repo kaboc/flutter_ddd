@@ -46,7 +46,7 @@ class CategoryListView extends StatelessWidget {
           ],
         ),
         onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
+          MaterialPageRoute<void>(
             builder: (_) => ChangeNotifierProvider<CategoryModel>.value(
               value: models,
               child: NoteListPage(category: category),

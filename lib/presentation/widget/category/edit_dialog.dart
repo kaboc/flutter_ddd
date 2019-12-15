@@ -25,7 +25,7 @@ class EditDialog {
   }
 
   void _showDialog() {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
