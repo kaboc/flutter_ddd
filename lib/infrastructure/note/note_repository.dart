@@ -71,7 +71,8 @@ class NoteRepository implements NoteRepositoryBase {
       <String>[categoryId.value],
     );
 
-    return list.cast<Map<String, int>>()[0]['cnt'];
+    final row = list[0].cast<String, int>();
+    return row['cnt'];
   }
 
   @override
