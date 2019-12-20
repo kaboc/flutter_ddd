@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_ddd/application/dto/category_dto.dart';
-import 'package:flutter_ddd/presentation/widget/note/update_button.dart';
 import 'package:flutter_ddd/presentation/model/note_model.dart';
+import 'package:flutter_ddd/presentation/widget/note/edit_button.dart';
 import 'package:flutter_ddd/presentation/widget/note/remove_button.dart';
 
 class NoteListView extends StatelessWidget {
@@ -41,7 +41,7 @@ class NoteListView extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            NoteUpdateButton(
+            NoteEditButton(
               noteId: note.id,
               category: category,
             ),

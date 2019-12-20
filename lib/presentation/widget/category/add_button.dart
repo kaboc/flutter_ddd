@@ -3,26 +3,20 @@ import 'package:provider/provider.dart';
 import 'package:flutter_ddd/presentation/model/category_model.dart';
 import 'package:flutter_ddd/presentation/widget/category/edit_dialog.dart';
 
-class CategoryUpdateButton extends StatelessWidget {
-  final CategoryDto category;
-
-  const CategoryUpdateButton({@required this.category});
+class CategoryAddButton extends StatelessWidget {
+  const CategoryAddButton();
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.edit),
+    return FloatingActionButton(
+      child: const Icon(Icons.add),
       onPressed: () => CategoryEditDialog(
         context: context,
-        heading: 'Edit category',
+        heading: 'New category',
         buttonLabel: 'SAVE',
-        initialName: category.name,
         onSave: ({name}) async {
           final model = Provider.of<CategoryModel>(context, listen: false);
-          await model.updateCategory(
-            id: category.id,
-            name: name,
-          );
+          await model.saveCategory(name: name);
         },
       ).show(),
     );

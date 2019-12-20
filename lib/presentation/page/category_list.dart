@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_ddd/application/category_app_service.dart';
 import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
 import 'package:flutter_ddd/presentation/model/category_model.dart';
+import 'package:flutter_ddd/presentation/widget/category/add_button.dart';
 import 'package:flutter_ddd/presentation/widget/category/category_list_view.dart';
-import 'package:flutter_ddd/presentation/widget/category/save_button.dart';
 
 class CategoryListPage extends StatelessWidget {
   const CategoryListPage();
@@ -25,7 +25,7 @@ class CategoryListPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(title: const Text('Categories')),
         body: const CategoryListView(),
-        floatingActionButton: CategorySaveButton(),
+        floatingActionButton: const CategoryAddButton(),
       ),
     );
   }

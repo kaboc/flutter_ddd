@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:flutter_ddd/presentation/model/note_model.dart';
 import 'package:flutter_ddd/presentation/widget/note/edit_dialog.dart';
 
-class NoteSaveButton extends StatelessWidget {
+class NoteAddButton extends StatelessWidget {
   final CategoryDto category;
 
-  const NoteSaveButton({@required this.category});
+  const NoteAddButton({@required this.category});
 
   @override
   Widget build(BuildContext context) {

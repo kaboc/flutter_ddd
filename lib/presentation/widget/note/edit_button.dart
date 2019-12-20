@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:flutter_ddd/presentation/model/note_model.dart';
 import 'package:flutter_ddd/presentation/widget/note/edit_dialog.dart';
 
-class NoteUpdateButton extends StatelessWidget {
+class NoteEditButton extends StatelessWidget {
   final CategoryDto category;
   final String noteId;
 
-  const NoteUpdateButton({
+  const NoteEditButton({
     @required this.category,
     @required this.noteId,
   });

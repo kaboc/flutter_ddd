@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_ddd/presentation/widget/category/update_button.dart';
 import 'package:flutter_ddd/presentation/model/category_model.dart';
 import 'package:flutter_ddd/presentation/page/note_list.dart';
+import 'package:flutter_ddd/presentation/widget/category/edit_button.dart';
 import 'package:flutter_ddd/presentation/widget/category/remove_button.dart';
 
 class CategoryListView extends StatelessWidget {
@@ -41,7 +41,7 @@ class CategoryListView extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            CategoryUpdateButton(category: category),
+            CategoryEditButton(category: category),
             CategoryRemoveButton(category: category),
           ],
         ),
