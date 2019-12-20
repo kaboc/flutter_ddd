@@ -12,7 +12,7 @@ class CategoryUpdateButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.edit),
-      onPressed: () => EditDialog(
+      onPressed: () => CategoryEditDialog(
         context: context,
         heading: 'Edit category',
         buttonLabel: 'SAVE',
@@ -24,7 +24,7 @@ class CategoryUpdateButton extends StatelessWidget {
             name: name,
           );
         },
-      ),
+      ).show(),
     );
   }
 }

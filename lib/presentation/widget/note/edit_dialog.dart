@@ -21,101 +21,106 @@ typedef SaveCallback = Function({
   @required String categoryId,
 });
 
-class EditDialog {
-  final BuildContext context;
+class NoteEditDialog extends StatelessWidget {
+  final BuildContext _context;
   final String heading;
   final String buttonLabel;
   final CategoryDto category;
   final SaveCallback onSave;
-  final String initialTitle;
-  final String initialBody;
   final SelectedCategory _selected;
   final TitleEditingController _titleController;
   final BodyEditingController _bodyController;
 
-  EditDialog({
-    @required this.context,
+  NoteEditDialog({
+    @required BuildContext context,
     @required this.heading,
     @required this.buttonLabel,
     @required this.category,
     @required this.onSave,
-    this.initialTitle,
-    this.initialBody,
-  })  : _selected = SelectedCategory(category),
+    String initialTitle,
+    String initialBody,
+  })  : _context = context,
+        _selected = SelectedCategory(category),
         _titleController =
             Provider.of<TitleEditingController>(context, listen: false)
               ..text = initialTitle ?? '',
         _bodyController =
             Provider.of<BodyEditingController>(context, listen: false)
-              ..text = initialBody ?? '' {
-    _showDialog();
-  }
+              ..text = initialBody ?? '';
 
-  Future<void> _showDialog() {
+  @override
+  Widget build(BuildContext context) {
     _selected.category = category ?? _selected.category;
 
-    final categoryModel = Provider.of<CategoryModel>(context, listen: false);
+    final categoryModel = Provider.of<CategoryModel>(_context, listen: false);
 
-    return showDialog(
-      context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
+    return Center(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: AlertDialog(
           title: Text(heading),
-          content: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                CategoryDropdown(
-                  categories: categoryModel.list,
-                  selected: _selected,
+          content: Column(
+            children: <Widget>[
+              CategoryDropdown(
+                categories: categoryModel.list,
+                selected: _selected,
+              ),
+              TextField(
+                controller: _titleController,
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                  hintText: 'Enter note title',
                 ),
-                TextField(
-                  controller: _titleController,
-                  decoration: const InputDecoration(
-                    labelText: 'Title',
-                    hintText: 'Enter note title',
-                  ),
+              ),
+              TextField(
+                controller: _bodyController,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                minLines: 3,
+                decoration: const InputDecoration(
+                  labelText: 'Note',
+                  hintText: 'Enter note',
                 ),
-                TextField(
-                  controller: _bodyController,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  minLines: 5,
-                  decoration: const InputDecoration(
-                    labelText: 'Note',
-                    hintText: 'Enter note',
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
           actions: <Widget>[
             FlatButton(
               child: const Text('CANCEL'),
-              onPressed: () => Navigator.pop(dialogContext),
+              onPressed: () => Navigator.pop(context),
             ),
             FlatButton(
               child: Text(buttonLabel),
-              onPressed: () async {
-                try {
-                  await onSave(
-                    title: _titleController.text,
-                    body: _bodyController.text,
-                    categoryId: _selected.category.id,
-                  );
-                  Navigator.pop(dialogContext);
-                } catch (e) {
-                  Navigator.pop(dialogContext);
-                  ErrorDialog.show(
-                    context: context,
-                    message: e.toString(),
-                    onOk: _showDialog,
-                  );
-                }
-              },
+              onPressed: () async => _onPressed(context),
             ),
           ],
-        );
-      },
+        ),
+      ),
     );
+  }
+
+  void show() {
+    showDialog<void>(
+      context: _context,
+      builder: build,
+    );
+  }
+
+  Future<void> _onPressed(BuildContext context) async {
+    try {
+      await onSave(
+          title: _titleController.text,
+          body: _bodyController.text,
+          categoryId: _selected.category.id,
+      );
+      Navigator.pop(context);
+    } catch (e) {
+      Navigator.pop(context);
+      ErrorDialog(
+        context: _context,
+        message: e.toString(),
+        onConfirm: show,
+      ).show();
+    }
   }
 }

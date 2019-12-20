@@ -1,37 +1,38 @@
 import 'package:flutter/material.dart';
 
-class ErrorDialog {
-  static void show({
+class ErrorDialog extends StatelessWidget {
+  const ErrorDialog({
     @required BuildContext context,
-    @required String message,
-    VoidCallback onOk,
-  }) {
+    @required this.message,
+    this.onConfirm,
+  }) : _context = context;
+
+  final BuildContext _context;
+  final String message;
+  final VoidCallback onConfirm;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Error', style: TextStyle(color: Colors.red)),
+      content: Text(message),
+      actions: <Widget>[
+        RaisedButton(
+          child: const Text('OK', style: TextStyle(color: Colors.white)),
+          color: Colors.red,
+          onPressed: () {
+            Navigator.pop(context);
+            onConfirm?.call();
+          },
+        ),
+      ],
+    );
+  }
+
+  void show() {
     showDialog<void>(
-      context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
-          title: const Text(
-            'Error',
-            style: TextStyle(color: Colors.red),
-          ),
-          content: SingleChildScrollView(
-            child: Text(message),
-          ),
-          actions: <Widget>[
-            RaisedButton(
-              child: const Text(
-                'OK',
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Colors.red,
-              onPressed: () {
-                Navigator.pop(dialogContext);
-                onOk?.call();
-              },
-            ),
-          ],
-        );
-      },
+      context: _context,
+      builder: build,
     );
   }
 }

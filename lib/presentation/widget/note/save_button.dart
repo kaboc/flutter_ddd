@@ -12,7 +12,7 @@ class NoteSaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       child: const Icon(Icons.add),
-      onPressed: () => EditDialog(
+      onPressed: () => NoteEditDialog(
         context: context,
         heading: 'New note',
         buttonLabel: 'SAVE',
@@ -25,7 +25,7 @@ class NoteSaveButton extends StatelessWidget {
             categoryId: category.id,
           );
         },
-      ),
+      ).show(),
     );
   }
 }

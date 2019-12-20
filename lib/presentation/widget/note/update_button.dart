@@ -20,20 +20,22 @@ class NoteUpdateButton extends StatelessWidget {
         final model = Provider.of<NoteModel>(context, listen: false);
         final note = await model.getNote(noteId);
 
-        EditDialog(
+        NoteEditDialog(
           context: context,
           heading: 'Edit note',
           buttonLabel: 'SAVE',
           category: category,
-          onSave: ({title, body, categoryId}) async => await model.updateNote(
-            id: noteId,
-            title: title,
-            body: body,
-            categoryId: categoryId,
-          ),
+          onSave: ({title, body, categoryId}) async {
+            await model.updateNote(
+              id: noteId,
+              title: title,
+              body: body,
+              categoryId: categoryId,
+            );
+          },
           initialTitle: note.title,
           initialBody: note.body,
-        );
+        ).show();
       },
     );
   }

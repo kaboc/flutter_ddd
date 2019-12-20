@@ -8,7 +8,7 @@ class CategorySaveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       child: const Icon(Icons.add),
-      onPressed: () => EditDialog(
+      onPressed: () => CategoryEditDialog(
         context: context,
         heading: 'New category',
         buttonLabel: 'SAVE',
@@ -16,7 +16,7 @@ class CategorySaveButton extends StatelessWidget {
           final model = Provider.of<CategoryModel>(context, listen: false);
           await model.saveCategory(name: name);
         },
-      ),
+      ).show(),
     );
   }
 }
