@@ -59,7 +59,7 @@ class DbHelper {
     return db.then((db) async {
       return db.transaction<T>((txn) async {
         _txn = txn;
-        return f();
+        return await f();
       }).then((v) {
         _txn = null;
         return v;

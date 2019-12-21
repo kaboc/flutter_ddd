@@ -15,7 +15,7 @@ class SelectedCategory {
   SelectedCategory(this.category);
 }
 
-typedef SaveCallback = Function({
+typedef SaveCallback = Future<void> Function({
   @required String title,
   @required String body,
   @required String categoryId,

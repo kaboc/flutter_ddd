@@ -21,7 +21,7 @@ class CategoryRepository implements CategoryRepositoryBase {
 
   @override
   Future<T> transaction<T>(Future<T> Function() f) async {
-    return _dbHelper.transaction<T>(() => f());
+    return await _dbHelper.transaction<T>(() async => await f());
   }
 
   @override

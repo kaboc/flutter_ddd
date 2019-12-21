@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 
           return helper;
         },
-        dispose: (_, helper) => helper.dispose(),
+        dispose: (_, helper) async => await helper.dispose(),
         child: const CategoryListPage(),
       ),
     );
