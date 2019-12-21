@@ -5,9 +5,7 @@ import 'package:flutter_ddd/common/exception.dart';
 class CategoryName {
   final String value;
 
-  CategoryName(this.value)
-      : assert(value != null),
-        assert(value.isNotEmpty) {
+  CategoryName(this.value) {
     if (value == null || value.isEmpty) {
       throw NullEmptyException('Category name');
     }

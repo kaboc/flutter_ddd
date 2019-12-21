@@ -5,9 +5,7 @@ import 'package:flutter_ddd/common/exception.dart';
 class NoteTitle {
   final String value;
 
-  NoteTitle(this.value)
-      : assert(value != null),
-        assert(value.isNotEmpty) {
+  NoteTitle(this.value) {
     if (value == null || value.isEmpty) {
       throw NullEmptyException('Note title');
     }

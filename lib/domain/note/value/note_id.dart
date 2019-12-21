@@ -5,9 +5,7 @@ import 'package:flutter_ddd/common/exception.dart';
 class NoteId {
   final String value;
 
-  NoteId(this.value)
-      : assert(value != null),
-        assert(value.isNotEmpty) {
+  NoteId(this.value) {
     if (value == null || value.isEmpty) {
       throw NullEmptyException('Note ID');
     }
