@@ -50,7 +50,7 @@ class DbHelper {
 
   Transaction get txn => _txn;
 
-  Future<void> close() async {
+  Future<void> dispose() async {
     await _db?.close();
     _db = null;
   }

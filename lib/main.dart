@@ -6,12 +6,17 @@ import 'package:flutter_ddd/infrastructure/db_helper.dart';
 import 'package:flutter_ddd/infrastructure/note/note_repository.dart';
 import 'package:flutter_ddd/presentation/page/category_list.dart';
 
-void main() => runApp(MyApp());
+const appTitle = 'Notes';
+
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: appTitle,
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
@@ -29,7 +34,7 @@ class MyApp extends StatelessWidget {
 
           return helper;
         },
-        dispose: (_, helper) => helper.close(),
+        dispose: (_, helper) => helper.dispose(),
         child: const CategoryListPage(),
       ),
     );
