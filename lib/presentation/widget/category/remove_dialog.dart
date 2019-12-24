@@ -26,7 +26,7 @@ class CategoryRemoveDialog extends StatelessWidget {
           child: const Text('REMOVE'),
           onPressed: () async {
             try {
-              final model = Provider.of<CategoryModel>(_context, listen: false);
+              final model = Provider.of<CategoryModel>(_context);
               await model.removeCategory(category.id);
               Navigator.pop(context);
             } catch (e) {

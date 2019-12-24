@@ -18,7 +18,7 @@ class NoteAddButton extends StatelessWidget {
         buttonLabel: 'SAVE',
         category: category,
         onSave: ({title, body, categoryId}) async {
-          final model = Provider.of<NoteModel>(context, listen: false);
+          final model = Provider.of<NoteModel>(context);
           await model.saveNote(
             title: title,
             body: body,

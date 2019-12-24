@@ -41,18 +41,16 @@ class NoteEditDialog extends StatelessWidget {
     String initialBody,
   })  : _context = context,
         _selected = SelectedCategory(category),
-        _titleController =
-            Provider.of<TitleEditingController>(context, listen: false)
-              ..text = initialTitle ?? '',
-        _bodyController =
-            Provider.of<BodyEditingController>(context, listen: false)
-              ..text = initialBody ?? '';
+        _titleController = Provider.of<TitleEditingController>(context)
+          ..text = initialTitle ?? '',
+        _bodyController = Provider.of<BodyEditingController>(context)
+          ..text = initialBody ?? '';
 
   @override
   Widget build(BuildContext context) {
     _selected.category = category ?? _selected.category;
 
-    final categoryModel = Provider.of<CategoryModel>(_context, listen: false);
+    final categoryModel = Provider.of<CategoryModel>(_context);
 
     return Center(
       child: SingleChildScrollView(
@@ -109,9 +107,9 @@ class NoteEditDialog extends StatelessWidget {
   Future<void> _onPressed(BuildContext context) async {
     try {
       await onSave(
-          title: _titleController.text,
-          body: _bodyController.text,
-          categoryId: _selected.category.id,
+        title: _titleController.text,
+        body: _bodyController.text,
+        categoryId: _selected.category.id,
       );
       Navigator.pop(context);
     } catch (e) {

@@ -17,7 +17,7 @@ class NoteEditButton extends StatelessWidget {
     return IconButton(
       icon: const Icon(Icons.edit),
       onPressed: () async {
-        final model = Provider.of<NoteModel>(context, listen: false);
+        final model = Provider.of<NoteModel>(context);
         final note = await model.getNote(noteId);
 
         NoteEditDialog(

@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       home: Provider<DbHelper>(
+        lazy: false,
         create: (_) {
           final helper = DbHelper();
 

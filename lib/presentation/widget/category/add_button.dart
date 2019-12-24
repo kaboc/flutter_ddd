@@ -15,7 +15,7 @@ class CategoryAddButton extends StatelessWidget {
         heading: 'New category',
         buttonLabel: 'SAVE',
         onSave: ({name}) async {
-          final model = Provider.of<CategoryModel>(context, listen: false);
+          final model = Provider.of<CategoryModel>(context);
           await model.saveCategory(name: name);
         },
       ).show(),
