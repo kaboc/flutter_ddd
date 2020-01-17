@@ -1,10 +1,10 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class DbHelper {
-  static const _DB_FILE = 'ddd.db';
-  static const _DB_VERSION = 1;
+const _dbFile = 'ddd.db';
+const _dbVersion = 1;
 
+class DbHelper {
   Database _db;
   Transaction _txn;
 
@@ -14,11 +14,11 @@ class DbHelper {
     }
 
     final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, _DB_FILE);
+    final path = join(databasesPath, _dbFile);
 
     _db = await openDatabase(
       path,
-      version: _DB_VERSION,
+      version: _dbVersion,
       onCreate: (Database db, int version) async {
         await db.execute('''
           CREATE TABLE notes (
