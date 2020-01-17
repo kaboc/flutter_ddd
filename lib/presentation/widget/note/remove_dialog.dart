@@ -26,7 +26,7 @@ class NoteRemoveDialog extends StatelessWidget {
           child: const Text('REMOVE'),
           onPressed: () async {
             try {
-              final model = Provider.of<NoteModel>(_context);
+              final model = Provider.of<NoteModel>(_context, listen: false);
               await model.removeNote(noteId);
               Navigator.pop(context);
             } catch (e) {

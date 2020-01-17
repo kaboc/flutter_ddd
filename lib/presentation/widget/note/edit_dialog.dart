@@ -41,16 +41,18 @@ class NoteEditDialog extends StatelessWidget {
     String initialBody,
   })  : _context = context,
         _selected = SelectedCategory(category),
-        _titleController = Provider.of<TitleEditingController>(context)
-          ..text = initialTitle ?? '',
-        _bodyController = Provider.of<BodyEditingController>(context)
-          ..text = initialBody ?? '';
+        _titleController =
+            Provider.of<TitleEditingController>(context, listen: false)
+              ..text = initialTitle ?? '',
+        _bodyController =
+            Provider.of<BodyEditingController>(context, listen: false)
+              ..text = initialBody ?? '';
 
   @override
   Widget build(BuildContext context) {
     _selected.category = category ?? _selected.category;
 
-    final categoryModel = Provider.of<CategoryModel>(_context);
+    final categoryModel = Provider.of<CategoryModel>(_context, listen: false);
 
     return Center(
       child: SingleChildScrollView(
