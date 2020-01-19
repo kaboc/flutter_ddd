@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ddd/presentation/widget/note/edit_dialog.dart';
 
 class CategoryDropdown extends StatefulWidget {
-  final List<CategoryDto> categories;
-  final SelectedCategory selected;
+  final List<CategoryDto> list;
+  final CategoryDto value;
+  final Function(CategoryDto) onSelected;
 
   const CategoryDropdown({
-    @required this.categories,
-    @required this.selected,
+    @required this.list,
+    @required this.value,
+    @required this.onSelected,
   });
 
   @override
@@ -15,8 +17,12 @@ class CategoryDropdown extends StatefulWidget {
 }
 
 class _CategoryDropdownState extends State<CategoryDropdown> {
+  CategoryDto _value;
+
   @override
   Widget build(BuildContext context) {
+    _value ??= widget.value;
+
     return InputDecorator(
       decoration: const InputDecoration(
         labelText: 'Category',
@@ -25,8 +31,8 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
         child: DropdownButton<CategoryDto>(
           isExpanded: true,
           isDense: true,
-          value: widget.selected.category,
-          items: widget.categories
+          value: _value,
+          items: widget.list
               .map(
                 (category) => DropdownMenuItem<CategoryDto>(
                   value: category,
@@ -35,7 +41,8 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
               )
               .toList(),
           onChanged: (category) {
-            setState(() => widget.selected.category = category);
+            setState(() => _value = category);
+            widget.onSelected(category);
           },
         ),
       ),

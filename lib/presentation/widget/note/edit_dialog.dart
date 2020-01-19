@@ -6,28 +6,27 @@ import 'package:flutter_ddd/presentation/widget/note/dropdown.dart';
 
 export 'package:flutter_ddd/presentation/model/category_model.dart';
 
-class TitleEditingController = TextEditingController with Type;
-class BodyEditingController = TextEditingController with Type;
-
-class SelectedCategory {
-  CategoryDto category;
-
-  SelectedCategory(this.category);
-}
-
 typedef SaveCallback = Future<void> Function({
   @required String title,
   @required String body,
   @required String categoryId,
 });
 
+class _SelectedCategory {
+  CategoryDto category;
+
+  _SelectedCategory(this.category);
+}
+
+class TitleEditingController = TextEditingController with Type;
+class BodyEditingController = TextEditingController with Type;
+
 class NoteEditDialog extends StatelessWidget {
   final BuildContext _context;
   final String heading;
   final String buttonLabel;
-  final CategoryDto category;
   final SaveCallback onSave;
-  final SelectedCategory _selected;
+  final _SelectedCategory _selectedCategory;
   final TitleEditingController _titleController;
   final BodyEditingController _bodyController;
 
@@ -35,12 +34,12 @@ class NoteEditDialog extends StatelessWidget {
     @required BuildContext context,
     @required this.heading,
     @required this.buttonLabel,
-    @required this.category,
     @required this.onSave,
+    @required CategoryDto category,
     String initialTitle,
     String initialBody,
   })  : _context = context,
-        _selected = SelectedCategory(category),
+        _selectedCategory = _SelectedCategory(category),
         _titleController =
             Provider.of<TitleEditingController>(context, listen: false)
               ..text = initialTitle ?? '',
@@ -50,8 +49,6 @@ class NoteEditDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _selected.category = category ?? _selected.category;
-
     final categoryModel = Provider.of<CategoryModel>(_context, listen: false);
 
     return Center(
@@ -62,8 +59,9 @@ class NoteEditDialog extends StatelessWidget {
           content: Column(
             children: <Widget>[
               CategoryDropdown(
-                categories: categoryModel.list,
-                selected: _selected,
+                list: categoryModel.list,
+                value: _selectedCategory.category,
+                onSelected: (category) => _selectedCategory.category = category,
               ),
               TextField(
                 controller: _titleController,
@@ -111,7 +109,7 @@ class NoteEditDialog extends StatelessWidget {
       await onSave(
         title: _titleController.text,
         body: _bodyController.text,
-        categoryId: _selected.category.id,
+        categoryId: _selectedCategory.category.id,
       );
       Navigator.pop(context);
     } catch (e) {
