@@ -12,12 +12,6 @@ typedef SaveCallback = Future<void> Function({
   @required String categoryId,
 });
 
-class _SelectedCategory {
-  CategoryDto category;
-
-  _SelectedCategory(this.category);
-}
-
 class TitleEditingController = TextEditingController with Type;
 class BodyEditingController = TextEditingController with Type;
 
@@ -26,7 +20,7 @@ class NoteEditDialog extends StatelessWidget {
   final String heading;
   final String buttonLabel;
   final SaveCallback onSave;
-  final _SelectedCategory _selectedCategory;
+  final CategoryDto category;
   final TitleEditingController _titleController;
   final BodyEditingController _bodyController;
 
@@ -35,11 +29,10 @@ class NoteEditDialog extends StatelessWidget {
     @required this.heading,
     @required this.buttonLabel,
     @required this.onSave,
-    @required CategoryDto category,
+    @required this.category,
     String initialTitle,
     String initialBody,
   })  : _context = context,
-        _selectedCategory = _SelectedCategory(category),
         _titleController =
             Provider.of<TitleEditingController>(context, listen: false)
               ..text = initialTitle ?? '',
@@ -50,6 +43,7 @@ class NoteEditDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryModel = Provider.of<CategoryModel>(_context, listen: false);
+    CategoryDto selectedCategory = category;
 
     return Center(
       child: SingleChildScrollView(
@@ -60,8 +54,8 @@ class NoteEditDialog extends StatelessWidget {
             children: <Widget>[
               CategoryDropdown(
                 list: categoryModel.list,
-                value: _selectedCategory.category,
-                onSelected: (category) => _selectedCategory.category = category,
+                value: selectedCategory,
+                onChanged: (category) => selectedCategory = category,
               ),
               TextField(
                 controller: _titleController,
@@ -89,7 +83,7 @@ class NoteEditDialog extends StatelessWidget {
             ),
             FlatButton(
               child: Text(buttonLabel),
-              onPressed: () async => _onPressed(context),
+              onPressed: () async => _onPressed(context, selectedCategory),
             ),
           ],
         ),
@@ -104,12 +98,12 @@ class NoteEditDialog extends StatelessWidget {
     );
   }
 
-  Future<void> _onPressed(BuildContext context) async {
+  Future<void> _onPressed(BuildContext context, CategoryDto category) async {
     try {
       await onSave(
         title: _titleController.text,
         body: _bodyController.text,
-        categoryId: _selectedCategory.category.id,
+        categoryId: category.id,
       );
       Navigator.pop(context);
     } catch (e) {

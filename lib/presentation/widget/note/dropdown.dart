@@ -4,12 +4,12 @@ import 'package:flutter_ddd/presentation/widget/note/edit_dialog.dart';
 class CategoryDropdown extends StatefulWidget {
   final List<CategoryDto> list;
   final CategoryDto value;
-  final Function(CategoryDto) onSelected;
+  final Function(CategoryDto) onChanged;
 
   const CategoryDropdown({
     @required this.list,
     @required this.value,
-    @required this.onSelected,
+    @required this.onChanged,
   });
 
   @override
@@ -42,7 +42,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
               .toList(),
           onChanged: (category) {
             setState(() => _value = category);
-            widget.onSelected(category);
+            widget.onChanged(category);
           },
         ),
       ),
