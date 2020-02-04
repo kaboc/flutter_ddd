@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_ddd/application/category_app_service.dart';
 
 export 'package:flutter_ddd/application/dto/category_dto.dart';
