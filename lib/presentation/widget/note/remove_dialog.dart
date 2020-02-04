@@ -30,12 +30,12 @@ class NoteRemoveDialog extends StatelessWidget {
               final model = Provider.of<NoteModel>(_context, listen: false);
               await model.removeNote(noteId);
               Navigator.pop(context);
-            } catch (e) {
+            } on GenericException catch (e) {
               Navigator.pop(context);
-              ErrorDialog(
-                context: _context,
-                message: (e as GenericException).message,
-              ).show();
+              _showErrorDialog(e.message);
+            } catch (_) {
+              Navigator.pop(context);
+              _showErrorDialog('Unknown error occurred.');
             }
           },
         ),
@@ -48,5 +48,12 @@ class NoteRemoveDialog extends StatelessWidget {
       context: _context,
       builder: build,
     );
+  }
+
+  void _showErrorDialog(String message) {
+    ErrorDialog(
+      context: _context,
+      message: message,
+    ).show();
   }
 }

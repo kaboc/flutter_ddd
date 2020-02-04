@@ -66,13 +66,20 @@ class CategoryEditDialog extends StatelessWidget {
     try {
       await onSave(name: _nameController.text);
       Navigator.pop(context);
-    } catch (e) {
+    } on GenericException catch (e) {
       Navigator.pop(context);
-      ErrorDialog(
-        context: _context,
-        message: (e as GenericException).message,
-        onConfirm: show,
-      ).show();
+      _showErrorDialog(e.message);
+    } catch (_) {
+      Navigator.pop(context);
+      _showErrorDialog('Unknown error occurred.');
     }
+  }
+
+  void _showErrorDialog(String message) {
+    ErrorDialog(
+      context: _context,
+      message: message,
+      onConfirm: show,
+    ).show();
   }
 }
