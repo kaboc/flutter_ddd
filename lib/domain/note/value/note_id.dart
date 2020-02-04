@@ -7,7 +7,7 @@ class NoteId {
 
   NoteId(this.value) {
     if (value == null || value.isEmpty) {
-      throw NullEmptyException('Note ID');
+      throw NullEmptyException(code: ExceptionCode.noteId);
     }
   }
 

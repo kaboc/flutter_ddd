@@ -23,7 +23,10 @@ class CategoryAppService {
 
     await _repository.transaction<void>(() async {
       if (await _service.isDuplicated(category.name)) {
-        throw NotUniqueException('Category name: ${category.name.value}');
+        throw NotUniqueException(
+          code: ExceptionCode.categoryName,
+          value: category.name.value,
+        );
       } else {
         await _repository.save(category);
       }
@@ -39,12 +42,18 @@ class CategoryAppService {
     await _repository.transaction<void>(() async {
       final target = await _repository.find(targetId);
       if (target == null) {
-        throw NotFoundException('ID: $targetId');
+        throw NotFoundException(
+          code: ExceptionCode.categoryId,
+          target: targetId.value,
+        );
       }
 
       final newName = CategoryName(name);
       if (newName != target.name && await _service.isDuplicated(newName)) {
-        throw NotUniqueException('Category name: ${newName.value}');
+        throw NotUniqueException(
+          code: ExceptionCode.categoryName,
+          value: newName.value,
+        );
       }
       target.changeName(newName);
 
@@ -58,12 +67,14 @@ class CategoryAppService {
     await _repository.transaction<void>(() async {
       final target = await _repository.find(targetId);
       if (target == null) {
-        throw NotFoundException('ID: $targetId');
+        throw NotFoundException(
+          code: ExceptionCode.categoryId,
+          target: targetId.value,
+        );
       }
 
       if (await _noteRepository.countByCategory(targetId) > 0) {
-        throw GenericException(
-            'Cannot be removed;\nthis category contains notes.');
+        throw RemovalException(code: ExceptionCode.category);
       }
 
       await _repository.remove(target);

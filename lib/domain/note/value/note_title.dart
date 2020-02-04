@@ -7,10 +7,10 @@ class NoteTitle {
 
   NoteTitle(this.value) {
     if (value == null || value.isEmpty) {
-      throw NullEmptyException('Note title');
+      throw NullEmptyException(code: ExceptionCode.noteTitle);
     }
     if (value.length > 50) {
-      throw GenericException('Title must be 50 letters or shorter.');
+      throw LengthException(code: ExceptionCode.noteTitle, max: 50);
     }
   }
 

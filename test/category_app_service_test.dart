@@ -1,7 +1,9 @@
 import 'package:test/test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/application/category_app_service.dart';
 import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
+
 import 'infrastructure/category_repository.dart';
 import 'infrastructure/note_repository.dart';
 
@@ -26,7 +28,7 @@ void main() {
       try {
         await app.saveCategory(name: 'category name');
       } catch (e) {
-        if (e.toString().contains('already exists')) {
+        if (e.runtimeType == NotUniqueException) {
           isSuccessful = false;
         }
       }

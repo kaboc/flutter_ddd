@@ -4,14 +4,14 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   get_it: ^3.1.0
-  provider: 4.0.1
+  provider: '>=4.0.2 <4.1.0'
   sqflite: ^1.2.0
   uuid: ^2.0.4
 

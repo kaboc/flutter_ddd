@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/presentation/widget/error_dialog.dart';
 
 typedef SaveCallback = Future<void> Function({@required String name});
@@ -69,7 +70,7 @@ class CategoryEditDialog extends StatelessWidget {
       Navigator.pop(context);
       ErrorDialog(
         context: _context,
-        message: e.toString(),
+        message: (e as GenericException).message,
         onConfirm: show,
       ).show();
     }

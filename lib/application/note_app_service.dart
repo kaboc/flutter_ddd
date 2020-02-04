@@ -30,7 +30,10 @@ class NoteAppService {
 
     await _repository.transaction<void>(() async {
       if (await _service.isDuplicated(note.title)) {
-        throw NotUniqueException('Note title: ${note.title.value}');
+        throw NotUniqueException(
+          code: ExceptionCode.noteTitle,
+          value: note.title.value,
+        );
       } else {
         await _repository.save(note);
       }
@@ -48,12 +51,18 @@ class NoteAppService {
     await _repository.transaction<void>(() async {
       final target = await _repository.find(targetId);
       if (target == null) {
-        throw NotFoundException('ID: $targetId');
+        throw NotFoundException(
+          code: ExceptionCode.noteId,
+          target: targetId.value,
+        );
       }
 
       final newTitle = NoteTitle(title);
       if (newTitle != target.title && await _service.isDuplicated(newTitle)) {
-        throw NotUniqueException('Note title: ${newTitle.value}');
+        throw NotUniqueException(
+          code: ExceptionCode.noteTitle,
+          value: newTitle.value,
+        );
       }
       target.changeTitle(newTitle);
 
@@ -73,7 +82,10 @@ class NoteAppService {
     await _repository.transaction<void>(() async {
       final target = await _repository.find(targetId);
       if (target == null) {
-        throw NotFoundException('ID: $targetId');
+        throw NotFoundException(
+          code: ExceptionCode.noteId,
+          target: targetId.value,
+        );
       }
 
       await _repository.remove(target);

@@ -7,10 +7,10 @@ class CategoryName {
 
   CategoryName(this.value) {
     if (value == null || value.isEmpty) {
-      throw NullEmptyException('Category name');
+      throw NullEmptyException(code: ExceptionCode.categoryName);
     }
     if (value.length > 20) {
-      throw GenericException('Name must be 20 letters or shorter.');
+      throw LengthException(code: ExceptionCode.categoryName, max: 20);
     }
   }
 

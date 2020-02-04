@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/presentation/model/category_model.dart';
 import 'package:flutter_ddd/presentation/widget/error_dialog.dart';
 import 'package:flutter_ddd/presentation/widget/note/dropdown.dart';
@@ -110,7 +111,7 @@ class NoteEditDialog extends StatelessWidget {
       Navigator.pop(context);
       ErrorDialog(
         context: _context,
-        message: e.toString(),
+        message: (e as GenericException).message,
         onConfirm: show,
       ).show();
     }

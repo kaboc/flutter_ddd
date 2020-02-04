@@ -7,7 +7,7 @@ class CategoryId {
 
   CategoryId(this.value) {
     if (value == null || value.isEmpty) {
-      throw NullEmptyException('Category ID');
+      throw NullEmptyException(code: ExceptionCode.categoryId);
     }
   }
 

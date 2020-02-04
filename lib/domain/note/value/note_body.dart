@@ -7,7 +7,7 @@ class NoteBody {
 
   NoteBody(this.value) {
     if (value == null || value.isEmpty) {
-      throw NullEmptyException('Note');
+      throw NullEmptyException(code: ExceptionCode.note);
     }
   }
 
