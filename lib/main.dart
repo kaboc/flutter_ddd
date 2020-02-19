@@ -15,28 +15,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: appTitle,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: Provider<DbHelper>(
-        lazy: false,
-        create: (_) {
-          final helper = DbHelper();
+    return Provider<DbHelper>(
+      lazy: false,
+      create: (_) {
+        final helper = DbHelper();
 
-          final getIt = GetIt.instance;
-          getIt.registerSingleton<CategoryRepositoryBase>(
-            CategoryRepository(dbHelper: helper),
-          );
-          getIt.registerSingleton<NoteRepositoryBase>(
-            NoteRepository(dbHelper: helper),
-          );
+        final getIt = GetIt.instance;
+        getIt.registerSingleton<CategoryRepositoryBase>(
+          CategoryRepository(dbHelper: helper),
+        );
+        getIt.registerSingleton<NoteRepositoryBase>(
+          NoteRepository(dbHelper: helper),
+        );
 
-          return helper;
-        },
-        dispose: (_, helper) async => await helper.dispose(),
-        child: const CategoryListPage(),
+        return helper;
+      },
+      dispose: (_, helper) async => await helper.dispose(),
+      child: MaterialApp(
+        title: appTitle,
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+        home: const CategoryListPage(),
       ),
     );
   }
