@@ -18,7 +18,7 @@ class Category {
       identical(other, this) || (other is Category && other.id == id);
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => runtimeType.hashCode ^ id.hashCode;
 
   void changeName(CategoryName newName) {
     _name = newName;

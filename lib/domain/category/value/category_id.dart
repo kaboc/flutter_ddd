@@ -16,5 +16,5 @@ class CategoryId {
       identical(other, this) || (other is CategoryId && other.value == value);
 
   @override
-  int get hashCode => value.hashCode;
+  int get hashCode => runtimeType.hashCode ^ value.hashCode;
 }

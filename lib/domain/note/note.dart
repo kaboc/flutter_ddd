@@ -33,7 +33,7 @@ class Note {
       identical(other, this) || (other is Note && other.id == id);
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => runtimeType.hashCode ^ id.hashCode;
 
   void changeTitle(NoteTitle newTitle) {
     _title = newTitle;

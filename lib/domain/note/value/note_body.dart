@@ -16,5 +16,5 @@ class NoteBody {
       identical(other, this) || (other is NoteBody && other.value == value);
 
   @override
-  int get hashCode => value.hashCode;
+  int get hashCode => runtimeType.hashCode ^ value.hashCode;
 }
