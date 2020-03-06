@@ -1,5 +1,8 @@
+import 'package:meta/meta.dart';
+
 import 'package:flutter_ddd/domain/note/note.dart';
 
+@immutable
 class NoteDto {
   final String id;
   final String title;

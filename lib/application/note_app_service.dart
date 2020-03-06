@@ -10,6 +10,7 @@ import 'package:flutter_ddd/domain/note/note_repository_base.dart';
 export 'package:flutter_ddd/application/dto/note_dto.dart';
 export 'package:flutter_ddd/application/dto/note_summary_dto.dart';
 
+@immutable
 class NoteAppService {
   final NoteFactoryBase _factory;
   final NoteService _service = NoteService();

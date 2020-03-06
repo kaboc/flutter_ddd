@@ -9,6 +9,7 @@ import 'package:flutter_ddd/application/dto/category_dto.dart';
 
 export 'package:flutter_ddd/application/dto/category_dto.dart';
 
+@immutable
 class CategoryAppService {
   final CategoryFactoryBase _factory;
   final _service = CategoryService();
