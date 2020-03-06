@@ -1,4 +1,4 @@
-import 'package:meta/meta.dart' show required;
+import 'package:meta/meta.dart';
 import 'package:flutter_ddd/domain/category/value/category_id.dart';
 import 'package:flutter_ddd/domain/category/value/category_name.dart';
 

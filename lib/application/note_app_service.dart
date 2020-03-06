@@ -1,4 +1,4 @@
-import 'package:meta/meta.dart' show required;
+import 'package:meta/meta.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/domain/note/note_factory_base.dart';
