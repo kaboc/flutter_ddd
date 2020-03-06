@@ -1,7 +1,7 @@
 name: flutter_ddd
 description: A new Flutter project.
 
-version: 1.0.0+1
+version: 1.0.0
 
 environment:
   sdk: ">=2.6.0 <3.0.0"
@@ -10,9 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  get_it: ^3.1.0
-  provider: '>=4.0.2 <4.1.0'
-  sqflite: ^1.2.0
+  get_it: ^4.0.0
+  provider: '>=4.0.4 <4.1.0'
+  sqflite: ^1.2.1
   uuid: ^2.0.4
 
 dev_dependencies:
