@@ -32,7 +32,7 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<Note> find(NoteId id) async {
-    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
+    final list = await _dbHelper.rawQuery(
       'SELECT * FROM notes WHERE id = ?',
       <String>[id.value],
     );
@@ -42,7 +42,7 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<Note> findByTitle(NoteTitle title) async {
-    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
+    final list = await _dbHelper.rawQuery(
       'SELECT * FROM notes WHERE title = ?',
       <String>[title.value],
     );
@@ -52,7 +52,7 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<List<Note>> findByCategory(CategoryId categoryId) async {
-    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
+    final list = await _dbHelper.rawQuery(
       'SELECT * FROM notes WHERE category_id = ? ORDER BY title',
       <String>[categoryId.value],
     );
@@ -66,7 +66,7 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<int> countByCategory(CategoryId categoryId) async {
-    final list = await (_dbHelper.txn ?? await _dbHelper.db).rawQuery(
+    final list = await _dbHelper.rawQuery(
       'SELECT COUNT(*) AS cnt FROM notes WHERE category_id = ?',
       <String>[categoryId.value],
     );
@@ -77,7 +77,7 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<void> save(Note note) async {
-    await (_dbHelper.txn ?? await _dbHelper.db).rawInsert(
+    await _dbHelper.rawInsert(
       '''
         INSERT OR REPLACE INTO notes
         (id, title, body, category_id) VALUES (?, ?, ?, ?)
@@ -93,7 +93,7 @@ class NoteRepository implements NoteRepositoryBase {
 
   @override
   Future<void> remove(Note note) async {
-    await (_dbHelper.txn ?? await _dbHelper.db).rawDelete(
+    await _dbHelper.rawDelete(
       'DELETE FROM notes WHERE id = ?',
       <String>[note.id.value],
     );
