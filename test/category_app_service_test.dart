@@ -1,5 +1,6 @@
-import 'package:test/test.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_test/flutter_test.dart';
+
 import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/application/category_app_service.dart';
 import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
