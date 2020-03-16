@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_ddd/application/note_app_service.dart';
 import 'package:flutter_ddd/application/dto/category_dto.dart';
 import 'package:flutter_ddd/infrastructure/note/note_factory.dart';
-import 'package:flutter_ddd/presentation/model/note_model.dart';
+import 'package:flutter_ddd/presentation/notifier/note_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/note/add_button.dart';
 import 'package:flutter_ddd/presentation/widget/note/note_list_view.dart';
 
@@ -19,8 +19,8 @@ class NoteListPage extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<NoteModel>(
-          create: (_) => NoteModel(app: app, categoryId: category.id),
+        ChangeNotifierProvider<NoteNotifier>(
+          create: (_) => NoteNotifier(app: app, categoryId: category.id),
         ),
         ChangeNotifierProvider<TitleEditingController>(
           create: (_) => TitleEditingController(),

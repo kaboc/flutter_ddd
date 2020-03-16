@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_ddd/application/dto/category_dto.dart';
-import 'package:flutter_ddd/presentation/model/note_model.dart';
+import 'package:flutter_ddd/presentation/notifier/note_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/note/edit_button.dart';
 import 'package:flutter_ddd/presentation/widget/note/remove_button.dart';
 
@@ -12,11 +12,11 @@ class NoteListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final models = Provider.of<NoteModel>(context);
+    final notifier = Provider.of<NoteNotifier>(context);
 
-    if (models.list == null)
+    if (notifier.list == null)
       return const Center(child: CircularProgressIndicator());
-    else if (models.list.isEmpty)
+    else if (notifier.list.isEmpty)
       return const Center(
         child: Text(
           'No note yet',
@@ -25,8 +25,8 @@ class NoteListView extends StatelessWidget {
       );
     else
       return ListView.builder(
-        itemCount: models.list.length,
-        itemBuilder: (context, index) => _listTile(context, models.list[index]),
+        itemCount: notifier.list.length,
+        itemBuilder: (context, index) => _listTile(context, notifier.list[index]),
       );
   }
 

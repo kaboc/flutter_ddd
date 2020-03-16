@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_ddd/presentation/model/note_model.dart';
+import 'package:flutter_ddd/presentation/notifier/note_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/note/edit_dialog.dart';
 
 class NoteAddButton extends StatelessWidget {
@@ -18,8 +18,8 @@ class NoteAddButton extends StatelessWidget {
         buttonLabel: 'SAVE',
         category: category,
         onSave: ({title, body, categoryId}) async {
-          final model = Provider.of<NoteModel>(context, listen: false);
-          await model.saveNote(
+          final notifier = Provider.of<NoteNotifier>(context, listen: false);
+          await notifier.saveNote(
             title: title,
             body: body,
             categoryId: category.id,

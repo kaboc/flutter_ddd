@@ -3,11 +3,11 @@ import 'package:flutter_ddd/application/note_app_service.dart';
 
 export 'package:flutter_ddd/application/dto/note_summary_dto.dart';
 
-class NoteModel with ChangeNotifier {
+class NoteNotifier with ChangeNotifier {
   final NoteAppService _app;
   final String _categoryId;
 
-  NoteModel({@required NoteAppService app, @required String categoryId})
+  NoteNotifier({@required NoteAppService app, @required String categoryId})
       : _app = app,
         _categoryId = categoryId {
     _updateList();

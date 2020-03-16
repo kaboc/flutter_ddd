@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_ddd/presentation/model/category_model.dart';
+import 'package:flutter_ddd/presentation/notifier/category_notifier.dart';
 import 'package:flutter_ddd/presentation/page/note_list.dart';
 import 'package:flutter_ddd/presentation/widget/category/edit_button.dart';
 import 'package:flutter_ddd/presentation/widget/category/remove_button.dart';
@@ -10,11 +10,11 @@ class CategoryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final models = Provider.of<CategoryModel>(context);
+    final notifier = Provider.of<CategoryNotifier>(context);
 
-    if (models.list == null)
+    if (notifier.list == null)
       return const Center(child: CircularProgressIndicator());
-    else if (models.list.isEmpty)
+    else if (notifier.list.isEmpty)
       return const Center(
         child: Text(
           'No category yet',
@@ -23,13 +23,13 @@ class CategoryListView extends StatelessWidget {
       );
     else
       return ListView.builder(
-        itemCount: models.list.length,
-        itemBuilder: (context, index) => _listTile(context, models, index),
+        itemCount: notifier.list.length,
+        itemBuilder: (context, index) => _listTile(context, notifier, index),
       );
   }
 
-  Widget _listTile(BuildContext context, CategoryModel models, int index) {
-    final category = models.list[index];
+  Widget _listTile(BuildContext context, CategoryNotifier notifier, int index) {
+    final category = notifier.list[index];
 
     return Card(
       child: ListTile(
@@ -47,8 +47,8 @@ class CategoryListView extends StatelessWidget {
         ),
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute<void>(
-            builder: (_) => ChangeNotifierProvider<CategoryModel>.value(
-              value: models,
+            builder: (_) => ChangeNotifierProvider<CategoryNotifier>.value(
+              value: notifier,
               child: NoteListPage(category: category),
             ),
           ),

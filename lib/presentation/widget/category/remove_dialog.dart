@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_ddd/common/exception.dart';
-import 'package:flutter_ddd/presentation/model/category_model.dart';
+import 'package:flutter_ddd/presentation/notifier/category_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/error_dialog.dart';
 
 class CategoryRemoveDialog extends StatelessWidget {
@@ -27,8 +27,9 @@ class CategoryRemoveDialog extends StatelessWidget {
           child: const Text('REMOVE'),
           onPressed: () async {
             try {
-              final model = Provider.of<CategoryModel>(_context, listen: false);
-              await model.removeCategory(category.id);
+              final notifier =
+                  Provider.of<CategoryNotifier>(_context, listen: false);
+              await notifier.removeCategory(category.id);
               Navigator.pop(context);
             } on GenericException catch (e) {
               Navigator.pop(context);

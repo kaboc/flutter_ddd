@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_ddd/common/exception.dart';
-import 'package:flutter_ddd/presentation/model/category_model.dart';
+import 'package:flutter_ddd/presentation/notifier/category_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/error_dialog.dart';
 import 'package:flutter_ddd/presentation/widget/note/dropdown.dart';
 
-export 'package:flutter_ddd/presentation/model/category_model.dart';
+export 'package:flutter_ddd/presentation/notifier/category_notifier.dart';
 
 typedef SaveCallback = Future<void> Function({
   @required String title,
@@ -43,7 +43,8 @@ class NoteEditDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryModel = Provider.of<CategoryModel>(_context, listen: false);
+    final categoryNotifier =
+        Provider.of<CategoryNotifier>(_context, listen: false);
     CategoryDto selectedCategory = category;
 
     return Center(
@@ -54,7 +55,7 @@ class NoteEditDialog extends StatelessWidget {
           content: Column(
             children: <Widget>[
               CategoryDropdown(
-                list: categoryModel.list,
+                list: categoryNotifier.list,
                 value: selectedCategory,
                 onChanged: (category) => selectedCategory = category,
               ),

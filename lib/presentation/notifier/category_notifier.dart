@@ -3,10 +3,10 @@ import 'package:flutter_ddd/application/category_app_service.dart';
 
 export 'package:flutter_ddd/application/dto/category_dto.dart';
 
-class CategoryModel with ChangeNotifier {
+class CategoryNotifier with ChangeNotifier {
   final CategoryAppService _app;
 
-  CategoryModel({@required CategoryAppService app}) : _app = app {
+  CategoryNotifier({@required CategoryAppService app}) : _app = app {
     _updateList();
   }
 

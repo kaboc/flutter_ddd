@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_ddd/presentation/model/category_model.dart';
+import 'package:flutter_ddd/presentation/notifier/category_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/category/edit_dialog.dart';
 
 class CategoryAddButton extends StatelessWidget {
@@ -15,8 +15,9 @@ class CategoryAddButton extends StatelessWidget {
         heading: 'New category',
         buttonLabel: 'SAVE',
         onSave: ({name}) async {
-          final model = Provider.of<CategoryModel>(context, listen: false);
-          await model.saveCategory(name: name);
+          final notifier =
+              Provider.of<CategoryNotifier>(context, listen: false);
+          await notifier.saveCategory(name: name);
         },
       ).show(),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_ddd/application/category_app_service.dart';
 import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
-import 'package:flutter_ddd/presentation/model/category_model.dart';
+import 'package:flutter_ddd/presentation/notifier/category_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/category/add_button.dart';
 import 'package:flutter_ddd/presentation/widget/category/category_list_view.dart';
 
@@ -15,8 +15,8 @@ class CategoryListPage extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<CategoryModel>(
-          create: (_) => CategoryModel(app: app),
+        ChangeNotifierProvider<CategoryNotifier>(
+          create: (_) => CategoryNotifier(app: app),
         ),
         ChangeNotifierProvider<TextEditingController>(
           create: (_) => TextEditingController(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_ddd/common/exception.dart';
-import 'package:flutter_ddd/presentation/model/note_model.dart';
+import 'package:flutter_ddd/presentation/notifier/note_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/error_dialog.dart';
 
 class NoteRemoveDialog extends StatelessWidget {
@@ -27,8 +27,9 @@ class NoteRemoveDialog extends StatelessWidget {
           child: const Text('REMOVE'),
           onPressed: () async {
             try {
-              final model = Provider.of<NoteModel>(_context, listen: false);
-              await model.removeNote(noteId);
+              final notifier =
+                  Provider.of<NoteNotifier>(_context, listen: false);
+              await notifier.removeNote(noteId);
               Navigator.pop(context);
             } on GenericException catch (e) {
               Navigator.pop(context);
