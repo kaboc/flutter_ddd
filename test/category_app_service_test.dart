@@ -2,7 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_ddd/common/exception.dart';
-import 'package:flutter_ddd/application/category_app_service.dart';
+import 'package:flutter_ddd/app_service/category_app_service.dart';
 import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
 
 import 'infrastructure/category_repository.dart';
@@ -21,13 +21,13 @@ void main() {
       repository.clear();
       categoryRepository.clear();
 
-      final app = CategoryAppService(factory: const CategoryFactory());
-      await app.saveCategory(name: 'category name');
+      final service = CategoryAppService(factory: const CategoryFactory());
+      await service.saveCategory(name: 'category name');
 
       bool isSuccessful = true;
 
       try {
-        await app.saveCategory(name: 'category name');
+        await service.saveCategory(name: 'category name');
       } catch (e) {
         if (e.runtimeType == NotUniqueException) {
           isSuccessful = false;
@@ -41,10 +41,10 @@ void main() {
       repository.clear();
       categoryRepository.clear();
 
-      final app = CategoryAppService(factory: const CategoryFactory());
-      await app.saveCategory(name: 'category name');
+      final service = CategoryAppService(factory: const CategoryFactory());
+      await service.saveCategory(name: 'category name');
 
-      final categories = await app.getCategoryList();
+      final categories = await service.getCategoryList();
       expect(categories.length, 1);
     });
 
@@ -52,15 +52,15 @@ void main() {
       repository.clear();
       categoryRepository.clear();
 
-      final app = CategoryAppService(factory: const CategoryFactory());
-      await app.saveCategory(name: 'category name');
+      final service = CategoryAppService(factory: const CategoryFactory());
+      await service.saveCategory(name: 'category name');
 
-      final categories = await app.getCategoryList();
+      final categories = await service.getCategoryList();
 
       bool isSuccessful = true;
 
       try {
-        await app.updateCategory(
+        await service.updateCategory(
           id: categories[0].id,
           name: 'category name',
         );
@@ -75,13 +75,13 @@ void main() {
       repository.clear();
       categoryRepository.clear();
 
-      final app = CategoryAppService(factory: const CategoryFactory());
-      await app.saveCategory(name: 'category name');
+      final service = CategoryAppService(factory: const CategoryFactory());
+      await service.saveCategory(name: 'category name');
 
-      final categories = await app.getCategoryList();
-      await app.removeCategory(categories[0].id);
+      final categories = await service.getCategoryList();
+      await service.removeCategory(categories[0].id);
 
-      expect(await app.getCategoryList(), isEmpty);
+      expect(await service.getCategoryList(), isEmpty);
     });
   });
 }

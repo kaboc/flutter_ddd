@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_ddd/application/note_app_service.dart';
+import 'package:flutter_ddd/app_service/note_app_service.dart';
 
-export 'package:flutter_ddd/application/dto/note_summary_dto.dart';
+export 'package:flutter_ddd/app_service/dto/note_summary_dto.dart';
 
 class NoteNotifier with ChangeNotifier {
-  final NoteAppService _app;
+  final NoteAppService _service;
   final String _categoryId;
 
-  NoteNotifier({@required NoteAppService app, @required String categoryId})
-      : _app = app,
+  NoteNotifier({@required NoteAppService service, @required String categoryId})
+      : _service = service,
         _categoryId = categoryId {
     _updateList();
   }
@@ -23,7 +23,7 @@ class NoteNotifier with ChangeNotifier {
     @required String body,
     @required String categoryId,
   }) async {
-    await _app.saveNote(
+    await _service.saveNote(
       title: title,
       body: body,
       categoryId: categoryId,
@@ -37,7 +37,7 @@ class NoteNotifier with ChangeNotifier {
     @required String body,
     @required String categoryId,
   }) async {
-    await _app.updateNote(
+    await _service.updateNote(
       id: id,
       title: title,
       body: body,
@@ -47,16 +47,16 @@ class NoteNotifier with ChangeNotifier {
   }
 
   Future<void> removeNote(String id) async {
-    await _app.removeNote(id);
+    await _service.removeNote(id);
     _updateList();
   }
 
   Future<NoteDto> getNote(String id) async {
-    return await _app.getNote(id);
+    return await _service.getNote(id);
   }
 
   void _updateList() {
-    _app.getNoteList(_categoryId).then((list) {
+    _service.getNoteList(_categoryId).then((list) {
       _list = list;
       notifyListeners();
     });

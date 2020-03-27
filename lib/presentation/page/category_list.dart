@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_ddd/application/category_app_service.dart';
+import 'package:flutter_ddd/app_service/category_app_service.dart';
 import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
 import 'package:flutter_ddd/presentation/notifier/category_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/category/add_button.dart';
@@ -11,12 +11,12 @@ class CategoryListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final app = CategoryAppService(factory: const CategoryFactory());
+    final service = CategoryAppService(factory: const CategoryFactory());
 
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<CategoryNotifier>(
-          create: (_) => CategoryNotifier(app: app),
+          create: (_) => CategoryNotifier(service: service),
         ),
         ChangeNotifierProvider<TextEditingController>(
           create: (_) => TextEditingController(),

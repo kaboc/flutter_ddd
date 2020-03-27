@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_ddd/application/note_app_service.dart';
+import 'package:flutter_ddd/app_service/note_app_service.dart';
 import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/infrastructure/note/note_factory.dart';
 
@@ -16,8 +16,8 @@ void main() {
     test('registering existing title should fail', () async {
       repository.clear();
 
-      final app = NoteAppService(factory: const NoteFactory());
-      await app.saveNote(
+      final service = NoteAppService(factory: const NoteFactory());
+      await service.saveNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id',
@@ -26,7 +26,7 @@ void main() {
       bool isSuccessful = true;
 
       try {
-        await app.saveNote(
+        await service.saveNote(
           title: 'note title',
           body: 'note body 2',
           categoryId: 'category id 2',
@@ -43,33 +43,33 @@ void main() {
     test('new note should be registered', () async {
       repository.clear();
 
-      final app = NoteAppService(factory: const NoteFactory());
-      await app.saveNote(
+      final service = NoteAppService(factory: const NoteFactory());
+      await service.saveNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id',
       );
 
-      final notes = await app.getNoteList('category id');
+      final notes = await service.getNoteList('category id');
       expect(notes.length, 1);
     });
 
     test('update without change in title should be successful', () async {
       repository.clear();
 
-      final app = NoteAppService(factory: const NoteFactory());
-      await app.saveNote(
+      final service = NoteAppService(factory: const NoteFactory());
+      await service.saveNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id',
       );
 
-      final notes = await app.getNoteList('category id');
+      final notes = await service.getNoteList('category id');
 
       bool isSuccessful = true;
 
       try {
-        await app.updateNote(
+        await service.updateNote(
           id: notes[0].id,
           title: 'note title',
           body: 'note body 2',
@@ -85,44 +85,44 @@ void main() {
     test('note should be moved to another category', () async {
       repository.clear();
 
-      final app = NoteAppService(factory: const NoteFactory());
-      await app.saveNote(
+      final service = NoteAppService(factory: const NoteFactory());
+      await service.saveNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id 1',
       );
 
-      List<NoteSummaryDto> notes = await app.getNoteList('category id 1');
+      List<NoteSummaryDto> notes = await service.getNoteList('category id 1');
       expect(notes.length, 1);
 
-      await app.updateNote(
+      await service.updateNote(
         id: notes[0].id,
         title: 'note title',
         body: 'note body',
         categoryId: 'category id 2',
       );
 
-      notes = await app.getNoteList('category id 1');
+      notes = await service.getNoteList('category id 1');
       expect(notes.length, 0);
 
-      notes = await app.getNoteList('category id 2');
+      notes = await service.getNoteList('category id 2');
       expect(notes.length, 1);
     });
 
     test('note should be removed', () async {
       repository.clear();
 
-      final app = NoteAppService(factory: const NoteFactory());
-      await app.saveNote(
+      final service = NoteAppService(factory: const NoteFactory());
+      await service.saveNote(
         title: 'note title',
         body: 'note body',
         categoryId: 'category id',
       );
 
-      final notes = await app.getNoteList('category id');
-      await app.removeNote(notes[0].id);
+      final notes = await service.getNoteList('category id');
+      await service.removeNote(notes[0].id);
 
-      final note = await app.getNote(notes[0].id);
+      final note = await service.getNote(notes[0].id);
       expect(note, isNull);
     });
   });
