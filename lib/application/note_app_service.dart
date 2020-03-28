@@ -3,12 +3,12 @@ import 'package:get_it/get_it.dart';
 import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/domain/note/note_factory_base.dart';
 import 'package:flutter_ddd/domain/note/note_service.dart';
-import 'package:flutter_ddd/app_service/dto/note_dto.dart';
-import 'package:flutter_ddd/app_service/dto/note_summary_dto.dart';
+import 'package:flutter_ddd/application/dto/note_dto.dart';
+import 'package:flutter_ddd/application/dto/note_summary_dto.dart';
 import 'package:flutter_ddd/domain/note/note_repository_base.dart';
 
-export 'package:flutter_ddd/app_service/dto/note_dto.dart';
-export 'package:flutter_ddd/app_service/dto/note_summary_dto.dart';
+export 'package:flutter_ddd/application/dto/note_dto.dart';
+export 'package:flutter_ddd/application/dto/note_summary_dto.dart';
 
 @immutable
 class NoteAppService {

@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_ddd/app_service/category_app_service.dart';
+import 'package:flutter_ddd/application/category_app_service.dart';
 
-export 'package:flutter_ddd/app_service/dto/category_dto.dart';
+export 'package:flutter_ddd/application/dto/category_dto.dart';
 
 class CategoryNotifier with ChangeNotifier {
-  final CategoryAppService _service;
+  final CategoryAppService _app;
 
-  CategoryNotifier({@required CategoryAppService service}) : _service = service {
+  CategoryNotifier({@required CategoryAppService app}) : _app = app {
     _updateList();
   }
 
@@ -17,7 +17,7 @@ class CategoryNotifier with ChangeNotifier {
   Future<void> saveCategory({
     @required String name,
   }) async {
-    await _service.saveCategory(name: name);
+    await _app.saveCategory(name: name);
     _updateList();
   }
 
@@ -25,17 +25,17 @@ class CategoryNotifier with ChangeNotifier {
     @required String id,
     @required String name,
   }) async {
-    await _service.updateCategory(id: id, name: name);
+    await _app.updateCategory(id: id, name: name);
     _updateList();
   }
 
   Future<void> removeCategory(String id) async {
-    await _service.removeCategory(id);
+    await _app.removeCategory(id);
     _updateList();
   }
 
   void _updateList() {
-    _service.getCategoryList().then((list) {
+    _app.getCategoryList().then((list) {
       _list = list;
       notifyListeners();
     });

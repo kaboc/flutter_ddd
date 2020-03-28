@@ -5,9 +5,9 @@ import 'package:flutter_ddd/domain/category/category_factory_base.dart';
 import 'package:flutter_ddd/domain/category/category_repository_base.dart';
 import 'package:flutter_ddd/domain/category/category_service.dart';
 import 'package:flutter_ddd/domain/note/note_repository_base.dart';
-import 'package:flutter_ddd/app_service/dto/category_dto.dart';
+import 'package:flutter_ddd/application/dto/category_dto.dart';
 
-export 'package:flutter_ddd/app_service/dto/category_dto.dart';
+export 'package:flutter_ddd/application/dto/category_dto.dart';
 
 @immutable
 class CategoryAppService {

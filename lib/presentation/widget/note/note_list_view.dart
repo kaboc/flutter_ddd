@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_ddd/app_service/dto/category_dto.dart';
+import 'package:flutter_ddd/application/dto/category_dto.dart';
 import 'package:flutter_ddd/presentation/notifier/note_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/note/edit_button.dart';
 import 'package:flutter_ddd/presentation/widget/note/remove_button.dart';
