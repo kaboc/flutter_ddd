@@ -34,12 +34,10 @@ class NoteEditDialog extends StatelessWidget {
     String initialTitle,
     String initialBody,
   })  : _context = context,
-        _titleController =
-            Provider.of<TitleEditingController>(context, listen: false)
-              ..text = initialTitle ?? '',
-        _bodyController =
-            Provider.of<BodyEditingController>(context, listen: false)
-              ..text = initialBody ?? '';
+        _titleController = context.read<TitleEditingController>()
+          ..text = initialTitle ?? '',
+        _bodyController = context.read<BodyEditingController>()
+          ..text = initialBody ?? '';
 
   @override
   Widget build(BuildContext context) {

@@ -18,12 +18,10 @@ class CategoryEditButton extends StatelessWidget {
         buttonLabel: 'SAVE',
         initialName: category.name,
         onSave: ({name}) async {
-          final notifier =
-              Provider.of<CategoryNotifier>(context, listen: false);
-          await notifier.updateCategory(
-            id: category.id,
-            name: name,
-          );
+          await context.read<CategoryNotifier>().updateCategory(
+                id: category.id,
+                name: name,
+              );
         },
       ).show(),
     );

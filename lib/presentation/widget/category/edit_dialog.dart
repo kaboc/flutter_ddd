@@ -19,9 +19,8 @@ class CategoryEditDialog extends StatelessWidget {
     @required this.onSave,
     String initialName,
   })  : _context = context,
-        _nameController =
-            Provider.of<TextEditingController>(context, listen: false)
-              ..text = initialName ?? '';
+        _nameController = context.read<TextEditingController>()
+          ..text = initialName ?? '';
 
   @override
   Widget build(BuildContext context) {

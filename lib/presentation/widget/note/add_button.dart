@@ -18,12 +18,11 @@ class NoteAddButton extends StatelessWidget {
         buttonLabel: 'SAVE',
         category: category,
         onSave: ({title, body, categoryId}) async {
-          final notifier = Provider.of<NoteNotifier>(context, listen: false);
-          await notifier.saveNote(
-            title: title,
-            body: body,
-            categoryId: category.id,
-          );
+          await context.read<NoteNotifier>().saveNote(
+                title: title,
+                body: body,
+                categoryId: category.id,
+              );
         },
       ).show(),
     );

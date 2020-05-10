@@ -27,9 +27,7 @@ class NoteRemoveDialog extends StatelessWidget {
           child: const Text('REMOVE'),
           onPressed: () async {
             try {
-              final notifier =
-                  Provider.of<NoteNotifier>(_context, listen: false);
-              await notifier.removeNote(noteId);
+              await _context.read<NoteNotifier>().removeNote(noteId);
               Navigator.of(context).pop();
             } on GenericException catch (e) {
               Navigator.of(context).pop();

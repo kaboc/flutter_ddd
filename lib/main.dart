@@ -25,22 +25,20 @@ class MyApp extends StatelessWidget {
         ),
         Provider<CategoryRepositoryBase>(
           create: (context) => CategoryRepository(
-            dbHelper: Provider.of<DbHelper>(context, listen: false),
+            dbHelper: context.read<DbHelper>(),
           ),
         ),
         Provider<NoteRepositoryBase>(
           create: (context) => NoteRepository(
-            dbHelper: Provider.of<DbHelper>(context, listen: false),
+            dbHelper: context.read<DbHelper>(),
           ),
         ),
         ChangeNotifierProvider<CategoryNotifier>(
           create: (context) => CategoryNotifier(
             app: CategoryAppService(
               factory: const CategoryFactory(),
-              repository:
-                  Provider.of<CategoryRepositoryBase>(context, listen: false),
-              noteRepository:
-                  Provider.of<NoteRepositoryBase>(context, listen: false),
+              repository: context.read<CategoryRepositoryBase>(),
+              noteRepository: context.read<NoteRepositoryBase>(),
             ),
           ),
         ),

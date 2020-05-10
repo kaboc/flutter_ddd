@@ -10,11 +10,11 @@ class CategoryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = Provider.of<CategoryNotifier>(context);
+    final list = context.select((CategoryNotifier notifier) => notifier.list);
 
-    if (notifier.list == null)
+    if (list == null)
       return const Center(child: CircularProgressIndicator());
-    else if (notifier.list.isEmpty)
+    else if (list.isEmpty)
       return const Center(
         child: Text(
           'No category yet',
@@ -23,14 +23,12 @@ class CategoryListView extends StatelessWidget {
       );
     else
       return ListView.builder(
-        itemCount: notifier.list.length,
-        itemBuilder: (context, index) => _listTile(context, notifier, index),
+        itemCount: list.length,
+        itemBuilder: (context, index) => _listTile(context, list[index]),
       );
   }
 
-  Widget _listTile(BuildContext context, CategoryNotifier notifier, int index) {
-    final category = notifier.list[index];
-
+  Widget _listTile(BuildContext context, CategoryDto category) {
     return Card(
       child: ListTile(
         leading: const IconTheme(

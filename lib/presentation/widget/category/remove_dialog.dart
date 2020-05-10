@@ -27,9 +27,9 @@ class CategoryRemoveDialog extends StatelessWidget {
           child: const Text('REMOVE'),
           onPressed: () async {
             try {
-              final notifier =
-                  Provider.of<CategoryNotifier>(_context, listen: false);
-              await notifier.removeCategory(categoryId);
+              await _context
+                  .read<CategoryNotifier>()
+                  .removeCategory(categoryId);
               Navigator.of(context).pop();
             } on GenericException catch (e) {
               Navigator.of(context).pop();

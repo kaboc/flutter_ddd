@@ -12,11 +12,11 @@ class NoteListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = Provider.of<NoteNotifier>(context);
+    final list = context.select((NoteNotifier notifier) => notifier.list);
 
-    if (notifier.list == null)
+    if (list == null)
       return const Center(child: CircularProgressIndicator());
-    else if (notifier.list.isEmpty)
+    else if (list.isEmpty)
       return const Center(
         child: Text(
           'No note yet',
@@ -25,8 +25,8 @@ class NoteListView extends StatelessWidget {
       );
     else
       return ListView.builder(
-        itemCount: notifier.list.length,
-        itemBuilder: (context, index) => _listTile(context, notifier.list[index]),
+        itemCount: list.length,
+        itemBuilder: (context, index) => _listTile(context, list[index]),
       );
   }
 
