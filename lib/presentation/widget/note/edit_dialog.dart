@@ -81,7 +81,7 @@ class NoteEditDialog extends StatelessWidget {
           actions: <Widget>[
             FlatButton(
               child: const Text('CANCEL'),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.of(context).pop(),
             ),
             FlatButton(
               child: Text(buttonLabel),
@@ -107,12 +107,12 @@ class NoteEditDialog extends StatelessWidget {
         body: _bodyController.text,
         categoryId: category.id,
       );
-      Navigator.pop(context);
+      Navigator.of(context).pop();
     } on GenericException catch (e) {
-      Navigator.pop(context);
+      Navigator.of(context).pop();
       _showErrorDialog(e.message);
     } catch (_) {
-      Navigator.pop(context);
+      Navigator.of(context).pop();
       _showErrorDialog('Unknown error occurred.');
     }
   }

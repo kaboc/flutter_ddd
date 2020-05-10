@@ -21,7 +21,7 @@ class NoteRemoveDialog extends StatelessWidget {
       actions: <Widget>[
         FlatButton(
           child: const Text('CANCEL'),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         FlatButton(
           child: const Text('REMOVE'),
@@ -30,12 +30,12 @@ class NoteRemoveDialog extends StatelessWidget {
               final notifier =
                   Provider.of<NoteNotifier>(_context, listen: false);
               await notifier.removeNote(noteId);
-              Navigator.pop(context);
+              Navigator.of(context).pop();
             } on GenericException catch (e) {
-              Navigator.pop(context);
+              Navigator.of(context).pop();
               _showErrorDialog(e.message);
             } catch (_) {
-              Navigator.pop(context);
+              Navigator.of(context).pop();
               _showErrorDialog('Unknown error occurred.');
             }
           },

@@ -24,7 +24,6 @@ void main() {
       );
 
       bool isSuccessful = true;
-
       try {
         await app.saveNote(
           title: 'note title',
@@ -67,7 +66,6 @@ void main() {
       final notes = await app.getNoteList('category id');
 
       bool isSuccessful = true;
-
       try {
         await app.updateNote(
           id: notes[0].id,

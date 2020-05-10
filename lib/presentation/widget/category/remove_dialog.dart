@@ -6,11 +6,11 @@ import 'package:flutter_ddd/presentation/widget/error_dialog.dart';
 
 class CategoryRemoveDialog extends StatelessWidget {
   final BuildContext _context;
-  final CategoryDto category;
+  final String categoryId;
 
   const CategoryRemoveDialog({
     @required BuildContext context,
-    @required this.category,
+    @required this.categoryId,
   }) : _context = context;
 
   @override
@@ -21,7 +21,7 @@ class CategoryRemoveDialog extends StatelessWidget {
       actions: <Widget>[
         FlatButton(
           child: const Text('CANCEL'),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         FlatButton(
           child: const Text('REMOVE'),
@@ -29,13 +29,13 @@ class CategoryRemoveDialog extends StatelessWidget {
             try {
               final notifier =
                   Provider.of<CategoryNotifier>(_context, listen: false);
-              await notifier.removeCategory(category.id);
-              Navigator.pop(context);
+              await notifier.removeCategory(categoryId);
+              Navigator.of(context).pop();
             } on GenericException catch (e) {
-              Navigator.pop(context);
+              Navigator.of(context).pop();
               _showErrorDialog(e.message);
             } catch (_) {
-              Navigator.pop(context);
+              Navigator.of(context).pop();
               _showErrorDialog('Unknown error occurred.');
             }
           },

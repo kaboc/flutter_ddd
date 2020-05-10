@@ -9,23 +9,22 @@ import 'infrastructure/category_repository.dart';
 import 'infrastructure/note_repository.dart';
 
 void main() {
-  final repository = NoteRepository();
-  final categoryRepository = CategoryRepository();
+  final repository = CategoryRepository();
+  final noteRepository = NoteRepository();
 
   final getIt = GetIt.instance;
-  getIt.registerSingleton<NoteRepositoryBase>(repository);
-  getIt.registerSingleton<CategoryRepositoryBase>(categoryRepository);
+  getIt.registerSingleton<CategoryRepositoryBase>(repository);
+  getIt.registerSingleton<NoteRepositoryBase>(noteRepository);
 
   group('Category', () {
     test('registering existing name should fail', () async {
+      noteRepository.clear();
       repository.clear();
-      categoryRepository.clear();
 
       final app = CategoryAppService(factory: const CategoryFactory());
       await app.saveCategory(name: 'category name');
 
       bool isSuccessful = true;
-
       try {
         await app.saveCategory(name: 'category name');
       } catch (e) {
@@ -39,7 +38,7 @@ void main() {
 
     test('new category should be registered', () async {
       repository.clear();
-      categoryRepository.clear();
+      noteRepository.clear();
 
       final app = CategoryAppService(factory: const CategoryFactory());
       await app.saveCategory(name: 'category name');
@@ -50,7 +49,7 @@ void main() {
 
     test('update without change should be successful', () async {
       repository.clear();
-      categoryRepository.clear();
+      noteRepository.clear();
 
       final app = CategoryAppService(factory: const CategoryFactory());
       await app.saveCategory(name: 'category name');
@@ -58,7 +57,6 @@ void main() {
       final categories = await app.getCategoryList();
 
       bool isSuccessful = true;
-
       try {
         await app.updateCategory(
           id: categories[0].id,
@@ -73,7 +71,7 @@ void main() {
 
     test('category should be removed', () async {
       repository.clear();
-      categoryRepository.clear();
+      noteRepository.clear();
 
       final app = CategoryAppService(factory: const CategoryFactory());
       await app.saveCategory(name: 'category name');

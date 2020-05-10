@@ -33,9 +33,7 @@ class MyApp extends StatelessWidget {
       dispose: (_, helper) async => await helper.dispose(),
       child: MaterialApp(
         title: appTitle,
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
+        theme: ThemeData(primarySwatch: Colors.green),
         home: const CategoryListPage(),
       ),
     );

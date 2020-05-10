@@ -21,7 +21,7 @@ class ErrorDialog extends StatelessWidget {
           child: const Text('OK', style: TextStyle(color: Colors.white)),
           color: Colors.red,
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context).pop();
             onConfirm?.call();
           },
         ),

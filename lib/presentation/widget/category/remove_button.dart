@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ddd/presentation/notifier/category_notifier.dart';
 import 'package:flutter_ddd/presentation/widget/category/remove_dialog.dart';
 
 class CategoryRemoveButton extends StatelessWidget {
-  final CategoryDto category;
+  final String categoryId;
 
-  const CategoryRemoveButton({@required this.category});
+  const CategoryRemoveButton({@required this.categoryId});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +12,7 @@ class CategoryRemoveButton extends StatelessWidget {
       icon: Icon(Icons.delete),
       onPressed: () => CategoryRemoveDialog(
         context: context,
-        category: category
+        categoryId: categoryId,
       ).show(),
     );
   }
