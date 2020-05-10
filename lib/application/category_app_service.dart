@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:get_it/get_it.dart';
 import 'package:flutter_ddd/common/exception.dart';
 import 'package:flutter_ddd/domain/category/category_factory_base.dart';
 import 'package:flutter_ddd/domain/category/category_repository_base.dart';
@@ -12,12 +11,18 @@ export 'package:flutter_ddd/application/dto/category_dto.dart';
 @immutable
 class CategoryAppService {
   final CategoryFactoryBase _factory;
-  final _service = CategoryService();
-  final _repository = GetIt.instance<CategoryRepositoryBase>();
-  final _noteRepository = GetIt.instance<NoteRepositoryBase>();
+  final CategoryRepositoryBase _repository;
+  final NoteRepositoryBase _noteRepository;
+  final CategoryService _service;
 
-  CategoryAppService({@required CategoryFactoryBase factory})
-      : _factory = factory;
+  CategoryAppService({
+    @required CategoryFactoryBase factory,
+    @required CategoryRepositoryBase repository,
+    @required NoteRepositoryBase noteRepository,
+  })  : _factory = factory,
+        _repository = repository,
+        _noteRepository = noteRepository,
+        _service = CategoryService(repository: repository);
 
   Future<void> saveCategory({@required String name}) async {
     final category = _factory.create(name: name);

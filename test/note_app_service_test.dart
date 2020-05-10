@@ -1,4 +1,3 @@
-import 'package:get_it/get_it.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_ddd/application/note_app_service.dart';
@@ -10,13 +9,15 @@ import 'infrastructure/note_repository.dart';
 void main() {
   final repository = NoteRepository();
 
-  GetIt.instance.registerSingleton<NoteRepositoryBase>(repository);
+  final app = NoteAppService(
+    factory: const NoteFactory(),
+    repository: repository,
+  );
 
   group('Note', () {
     test('registering existing title should fail', () async {
       repository.clear();
 
-      final app = NoteAppService(factory: const NoteFactory());
       await app.saveNote(
         title: 'note title',
         body: 'note body',
@@ -42,7 +43,6 @@ void main() {
     test('new note should be registered', () async {
       repository.clear();
 
-      final app = NoteAppService(factory: const NoteFactory());
       await app.saveNote(
         title: 'note title',
         body: 'note body',
@@ -56,7 +56,6 @@ void main() {
     test('update without change in title should be successful', () async {
       repository.clear();
 
-      final app = NoteAppService(factory: const NoteFactory());
       await app.saveNote(
         title: 'note title',
         body: 'note body',
@@ -83,7 +82,6 @@ void main() {
     test('note should be moved to another category', () async {
       repository.clear();
 
-      final app = NoteAppService(factory: const NoteFactory());
       await app.saveNote(
         title: 'note title',
         body: 'note body',
@@ -110,7 +108,6 @@ void main() {
     test('note should be removed', () async {
       repository.clear();
 
-      final app = NoteAppService(factory: const NoteFactory());
       await app.saveNote(
         title: 'note title',
         body: 'note body',

@@ -1,4 +1,3 @@
-import 'package:get_it/get_it.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_ddd/common/exception.dart';
@@ -12,16 +11,17 @@ void main() {
   final repository = CategoryRepository();
   final noteRepository = NoteRepository();
 
-  final getIt = GetIt.instance;
-  getIt.registerSingleton<CategoryRepositoryBase>(repository);
-  getIt.registerSingleton<NoteRepositoryBase>(noteRepository);
+  final app = CategoryAppService(
+    factory: const CategoryFactory(),
+    repository: repository,
+    noteRepository: noteRepository,
+  );
 
   group('Category', () {
     test('registering existing name should fail', () async {
       noteRepository.clear();
       repository.clear();
 
-      final app = CategoryAppService(factory: const CategoryFactory());
       await app.saveCategory(name: 'category name');
 
       bool isSuccessful = true;
@@ -40,7 +40,6 @@ void main() {
       repository.clear();
       noteRepository.clear();
 
-      final app = CategoryAppService(factory: const CategoryFactory());
       await app.saveCategory(name: 'category name');
 
       final categories = await app.getCategoryList();
@@ -51,7 +50,6 @@ void main() {
       repository.clear();
       noteRepository.clear();
 
-      final app = CategoryAppService(factory: const CategoryFactory());
       await app.saveCategory(name: 'category name');
 
       final categories = await app.getCategoryList();
@@ -73,7 +71,6 @@ void main() {
       repository.clear();
       noteRepository.clear();
 
-      final app = CategoryAppService(factory: const CategoryFactory());
       await app.saveCategory(name: 'category name');
 
       final categories = await app.getCategoryList();
