@@ -5,8 +5,9 @@ import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
 import 'package:flutter_ddd/infrastructure/category/category_repository.dart';
 import 'package:flutter_ddd/infrastructure/db_helper.dart';
 import 'package:flutter_ddd/infrastructure/note/note_repository.dart';
+import 'package:flutter_ddd/init.dart';
 import 'package:flutter_ddd/presentation/notifier/category_notifier.dart';
-import 'package:flutter_ddd/presentation/page/category_list.dart';
+import 'package:flutter_ddd/presentation/page/init.dart';
 
 const appTitle = 'Notes';
 
@@ -42,12 +43,32 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
+        Provider<AppInit>(
+          create: (context) => AppInit(
+            navigatorKey: GlobalKey<NavigatorState>(),
+            dbHelper: context.read<DbHelper>(),
+          ),
+        ),
       ],
-      child: MaterialApp(
-        title: appTitle,
-        theme: ThemeData(primarySwatch: Colors.green),
-        home: const CategoryListPage(),
-      ),
+      child: const _Init(),
+    );
+  }
+}
+
+class _Init extends StatelessWidget {
+  const _Init();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: appTitle,
+      theme: ThemeData(primarySwatch: Colors.green),
+      navigatorKey: Provider.of<AppInit>(context).navigatorKey,
+      onGenerateRoute: (_) {
+        return MaterialPageRoute<dynamic>(
+          builder: (_) => const InitPage(appTitle: appTitle),
+        );
+      },
     );
   }
 }

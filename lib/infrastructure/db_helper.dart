@@ -8,7 +8,7 @@ class DbHelper {
   Database _db;
   Transaction _txn;
 
-  Future<Database> _open() async {
+  Future<Database> open() async {
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, _dbFile);
 
@@ -50,8 +50,7 @@ class DbHelper {
   }
 
   Future<T> transaction<T>(Future<T> Function() f) async {
-    final db = _db ?? await _open();
-    return db.transaction<T>((txn) async {
+    return _db.transaction<T>((txn) async {
       _txn = txn;
       return await f();
     }).then((v) {
@@ -64,20 +63,20 @@ class DbHelper {
     String sql, [
     List<dynamic> arguments,
   ]) async {
-    return await (_txn ?? _db ?? await _open()).rawQuery(sql, arguments);
+    return await (_txn ?? _db).rawQuery(sql, arguments);
   }
 
   Future<int> rawInsert(
     String sql, [
     List<dynamic> arguments,
   ]) async {
-    return await (_txn ?? _db ?? await _open()).rawInsert(sql, arguments);
+    return await (_txn ?? _db).rawInsert(sql, arguments);
   }
 
   Future<int> rawDelete(
     String sql, [
     List<dynamic> arguments,
   ]) async {
-    return await (_txn ?? _db ?? await _open()).rawDelete(sql, arguments);
+    return await (_txn ?? _db).rawDelete(sql, arguments);
   }
 }
