@@ -30,7 +30,7 @@ class NullEmptyException extends GenericException {
 class LengthException extends GenericException {
   LengthException({@required ExceptionCode code, @required int max})
       : assert(code != null),
-        assert(info != null && max > 0),
+        assert(max != null && max > 0),
         super(code: code, info: max);
 }
 
