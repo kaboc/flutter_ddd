@@ -5,6 +5,30 @@ class GenericException implements Exception {
   final dynamic info;
 
   GenericException({this.code = ExceptionCode.unknown, this.info});
+
+  @override
+  String toString() {
+    return '$runtimeType: ${code.value}';
+  }
+
+  String get message {
+    switch (runtimeType) {
+      case NotFoundException:
+        return '${code.value}: $info\nis not found.';
+      case NotUniqueException:
+        return '${code.value}: $info\nalready exists.';
+      case NullEmptyException:
+        return '${code.value}\nmust not be null or empty.';
+      case LengthException:
+        return '${code.value} must be $info letters or shorter.';
+      case RemovalException:
+        return code == ExceptionCode.category
+            ? 'Cannot be removed;\nthis category contains notes.'
+            : 'Cannot be removed';
+      default:
+        return 'Unknown error occurred.';
+    }
+  }
 }
 
 class NotFoundException extends GenericException {
@@ -67,27 +91,6 @@ extension ExceptionCodeValue on ExceptionCode {
         return 'Note title';
       default:
         return 'Unknown';
-    }
-  }
-}
-
-extension ExceptionMessage on GenericException {
-  String get message {
-    switch (runtimeType) {
-      case NotFoundException:
-        return '${code.value}: $info\nis not found.';
-      case NotUniqueException:
-        return '${code.value}: $info\nalready exists.';
-      case NullEmptyException:
-        return '${code.value}\nmust not be null or empty.';
-      case LengthException:
-        return '${code.value} must be $info letters or shorter.';
-      case RemovalException:
-        return code == ExceptionCode.category
-            ? 'Cannot be removed;\nthis category contains notes.'
-            : 'Cannot be removed';
-      default:
-        return 'Unknown error occurred.';
     }
   }
 }
