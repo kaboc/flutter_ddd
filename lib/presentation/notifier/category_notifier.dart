@@ -1,18 +1,19 @@
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
+import 'package:state_notifier/state_notifier.dart';
 import 'package:flutter_ddd/application/category_app_service.dart';
+import 'package:flutter_ddd/presentation/notifier/category_state.dart';
 
 export 'package:flutter_ddd/application/dto/category_dto.dart';
+export 'package:flutter_ddd/presentation/notifier/category_state.dart';
 
-class CategoryNotifier with ChangeNotifier {
+class CategoryNotifier extends StateNotifier<CategoryState> {
   final CategoryAppService _app;
 
-  CategoryNotifier({@required CategoryAppService app}) : _app = app {
+  CategoryNotifier({@required CategoryAppService app})
+      : _app = app,
+        super(const CategoryState()) {
     _updateList();
   }
-
-  List<CategoryDto> _list;
-
-  List<CategoryDto> get list => _list == null ? null : List.unmodifiable(_list);
 
   Future<void> saveCategory({
     @required String name,
@@ -36,8 +37,7 @@ class CategoryNotifier with ChangeNotifier {
 
   void _updateList() {
     _app.getCategoryList().then((list) {
-      _list = list;
-      notifyListeners();
+      state = state.copyWith(list: list);
     });
   }
 }

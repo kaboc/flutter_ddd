@@ -12,7 +12,7 @@ class NoteListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = context.select((NoteNotifier notifier) => notifier.list);
+    final list = context.select((NoteState state) => state.list);
 
     if (list == null)
       return const Center(child: CircularProgressIndicator());

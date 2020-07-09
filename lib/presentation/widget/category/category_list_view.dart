@@ -10,7 +10,7 @@ class CategoryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = context.select((CategoryNotifier notifier) => notifier.list);
+    final list = context.select((CategoryState state) => state.list);
 
     if (list == null)
       return const Center(child: CircularProgressIndicator());

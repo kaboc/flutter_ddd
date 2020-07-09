@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:flutter_ddd/application/category_app_service.dart';
 import 'package:flutter_ddd/infrastructure/category/category_factory.dart';
 import 'package:flutter_ddd/infrastructure/category/category_repository.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             dbHelper: context.read<DbHelper>(),
           ),
         ),
-        ChangeNotifierProvider<CategoryNotifier>(
+        StateNotifierProvider<CategoryNotifier, CategoryState>(
           create: (context) => CategoryNotifier(
             app: CategoryAppService(
               factory: const CategoryFactory(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:flutter_ddd/domain/note/note_repository_base.dart';
 import 'package:flutter_ddd/presentation/widget/note/edit_dialog.dart';
 import 'package:flutter_ddd/application/note_app_service.dart';
@@ -18,7 +19,7 @@ class NoteListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<NoteNotifier>(
+        StateNotifierProvider<NoteNotifier, NoteState>(
           create: (_) => NoteNotifier(
             app: NoteAppService(
               factory: const NoteFactory(),

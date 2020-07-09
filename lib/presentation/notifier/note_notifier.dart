@@ -1,22 +1,21 @@
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
+import 'package:state_notifier/state_notifier.dart';
 import 'package:flutter_ddd/application/note_app_service.dart';
+import 'package:flutter_ddd/presentation/notifier/note_state.dart';
 
 export 'package:flutter_ddd/application/dto/note_summary_dto.dart';
+export 'package:flutter_ddd/presentation/notifier/note_state.dart';
 
-class NoteNotifier with ChangeNotifier {
+class NoteNotifier extends StateNotifier<NoteState> {
   final NoteAppService _app;
   final String _categoryId;
 
   NoteNotifier({@required NoteAppService app, @required String categoryId})
       : _app = app,
-        _categoryId = categoryId {
+        _categoryId = categoryId,
+        super(const NoteState()) {
     _updateList();
   }
-
-  List<NoteSummaryDto> _list;
-
-  List<NoteSummaryDto> get list =>
-      _list == null ? null : List.unmodifiable(_list);
 
   Future<void> saveNote({
     @required String title,
@@ -57,8 +56,7 @@ class NoteNotifier with ChangeNotifier {
 
   void _updateList() {
     _app.getNoteList(_categoryId).then((list) {
-      _list = list;
-      notifyListeners();
+      state = state.copyWith(list: list);
     });
   }
 }

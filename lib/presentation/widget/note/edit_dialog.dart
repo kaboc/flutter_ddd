@@ -41,8 +41,6 @@ class NoteEditDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryNotifier =
-        Provider.of<CategoryNotifier>(_context, listen: false);
     CategoryDto selectedCategory = category;
 
     return Center(
@@ -53,7 +51,7 @@ class NoteEditDialog extends StatelessWidget {
           content: Column(
             children: <Widget>[
               CategoryDropdown(
-                list: categoryNotifier.list,
+                list: _context.read<CategoryState>().list,
                 value: selectedCategory,
                 onChanged: (category) => selectedCategory = category,
               ),

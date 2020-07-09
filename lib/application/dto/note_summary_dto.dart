@@ -10,4 +10,12 @@ class NoteSummaryDto {
   NoteSummaryDto(Note source)
       : id = source.id.value,
         title = source.title.value;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(other, this) ||
+      (other is NoteSummaryDto && other.id == id && other.title == title);
+
+  @override
+  int get hashCode => runtimeType.hashCode ^ id.hashCode ^ title.hashCode;
 }

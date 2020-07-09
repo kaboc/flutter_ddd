@@ -10,4 +10,12 @@ class CategoryDto {
   CategoryDto(Category source)
       : id = source.id.value,
         name = source.name.value;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(other, this) ||
+      (other is CategoryDto && other.id == id && other.name == name);
+
+  @override
+  int get hashCode => runtimeType.hashCode ^ id.hashCode ^ name.hashCode;
 }
