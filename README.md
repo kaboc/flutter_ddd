@@ -4,9 +4,22 @@ Notes app sample in Dart / Flutter with DDD.
 
 ![Screencast](doc/images/screencast.gif)
 
-This is an outcome of my attempt to understand Domain-Driven Design and consider how I can introduce it to app development in Flutter. The attempt began when I wondered what directory structure would be better and started to try to figure it out.
+This is an outcome of my attempt to understand Domain-Driven Design and consider how I can introduce
+it to app development in Flutter. The attempt began when I wondered what directory structure would be
+better and started to try to figure it out.
 
-DDD may be too much for a small app like this, resulting in unnecessarily bloated code, but should benefit more in development of larger apps.
+DDD may be too much for a small app like this, resulting in unnecessarily bloated code, but should
+help you more in development of larger apps.
+
+## Branches
+
+* master (current branch)
+    * The original example with ChangeNotifier
+* [state_notifier](https://github.com/kaboc/flutter_ddd/tree/state_notifier)
+    * A newer example with StateNotifier (w/o Freezed)
+        * I tried this to see if it could make things easier, but unfortunately I did not really see
+        benefits from just separating states from notifiers and making the states immutable in this
+        project. It may matter more in other projects.
 
 ## Related articles
 
