@@ -54,7 +54,7 @@ class NoteAppService {
     final targetId = NoteId(id);
 
     await _repository.transaction<void>(() async {
-      Note target = await _repository.find(targetId);
+      final target = await _repository.find(targetId);
       if (target == null) {
         throw NotFoundException(
           code: ExceptionCode.noteId,
@@ -69,13 +69,13 @@ class NoteAppService {
           value: newTitle.value,
         );
       }
-      target = target.changeTitle(newTitle);
+      target.changeTitle(newTitle);
 
       final newBody = NoteBody(body);
-      target = target.changeBody(newBody);
+      target.changeBody(newBody);
 
       final newCategoryId = CategoryId(categoryId);
-      target = target.changeCategory(newCategoryId);
+      target.changeCategory(newCategoryId);
 
       await _repository.save(target);
     });
