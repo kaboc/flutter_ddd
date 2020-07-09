@@ -9,24 +9,19 @@ export 'package:flutter_ddd/domain/note/value/note_body.dart';
 export 'package:flutter_ddd/domain/note/value/note_id.dart';
 export 'package:flutter_ddd/domain/note/value/note_title.dart';
 
+@immutable
 class Note {
   final NoteId id;
-  NoteTitle _title;
-  NoteBody _body;
-  CategoryId _categoryId;
+  final NoteTitle title;
+  final NoteBody body;
+  final CategoryId categoryId;
 
-  Note({
+  const Note({
     @required this.id,
-    @required NoteTitle title,
-    @required NoteBody body,
-    @required CategoryId categoryId,
-  })  : _title = title,
-        _body = body,
-        _categoryId = categoryId;
-
-  NoteTitle get title => _title;
-  NoteBody get body => _body;
-  CategoryId get categoryId => _categoryId;
+    @required this.title,
+    @required this.body,
+    @required this.categoryId,
+  });
 
   @override
   bool operator ==(Object other) =>
@@ -35,15 +30,19 @@ class Note {
   @override
   int get hashCode => runtimeType.hashCode ^ id.hashCode;
 
-  void changeTitle(NoteTitle newTitle) {
-    _title = newTitle;
+  Note copyWith({NoteTitle title, NoteBody body, CategoryId categoryId}) {
+    return Note(
+      id: id,
+      title: title ?? this.title,
+      body: body ?? this.body,
+      categoryId: categoryId ?? this.categoryId,
+    );
   }
 
-  void changeBody(NoteBody newBody) {
-    _body = newBody;
-  }
+  Note changeTitle(NoteTitle newTitle) => copyWith(title: newTitle);
 
-  void changeCategory(CategoryId newCategoryId) {
-    _categoryId = newCategoryId;
-  }
+  Note changeBody(NoteBody newBody) => copyWith(body: newBody);
+
+  Note changeCategory(CategoryId newCategoryId) =>
+      copyWith(categoryId: newCategoryId);
 }

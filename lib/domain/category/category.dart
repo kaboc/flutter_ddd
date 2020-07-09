@@ -5,13 +5,12 @@ import 'package:flutter_ddd/domain/category/value/category_name.dart';
 export 'package:flutter_ddd/domain/category/value/category_id.dart';
 export 'package:flutter_ddd/domain/category/value/category_name.dart';
 
+@immutable
 class Category {
   final CategoryId id;
-  CategoryName _name;
+  final CategoryName name;
 
-  Category({@required this.id, @required CategoryName name}) : _name = name;
-
-  CategoryName get name => _name;
+  const Category({@required this.id, @required this.name});
 
   @override
   bool operator ==(Object other) =>
@@ -20,7 +19,12 @@ class Category {
   @override
   int get hashCode => runtimeType.hashCode ^ id.hashCode;
 
-  void changeName(CategoryName newName) {
-    _name = newName;
+  Category copyWith({CategoryName name}) {
+    return Category(
+      id: id,
+      name: name ?? this.name,
+    );
   }
+
+  Category changeName(CategoryName newName) => copyWith(name: newName);
 }

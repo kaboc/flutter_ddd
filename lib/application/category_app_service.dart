@@ -46,7 +46,7 @@ class CategoryAppService {
     final targetId = CategoryId(id);
 
     await _repository.transaction<void>(() async {
-      final target = await _repository.find(targetId);
+      Category target = await _repository.find(targetId);
       if (target == null) {
         throw NotFoundException(
           code: ExceptionCode.categoryId,
@@ -61,7 +61,7 @@ class CategoryAppService {
           value: newName.value,
         );
       }
-      target.changeName(newName);
+      target = target.changeName(newName);
 
       await _repository.save(target);
     });
