@@ -14,10 +14,12 @@ class Category {
   CategoryName get name => _name;
 
   @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) =>
       identical(other, this) || (other is Category && other.id == id);
 
   @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => runtimeType.hashCode ^ id.hashCode;
 
   void changeName(CategoryName newName) {

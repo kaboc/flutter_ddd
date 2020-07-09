@@ -29,10 +29,12 @@ class Note {
   CategoryId get categoryId => _categoryId;
 
   @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(Object other) =>
       identical(other, this) || (other is Note && other.id == id);
 
   @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => runtimeType.hashCode ^ id.hashCode;
 
   void changeTitle(NoteTitle newTitle) {
